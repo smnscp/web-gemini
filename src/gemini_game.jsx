@@ -1,7 +1,5 @@
 'use strict'
 
-const e = React.createElement
-
 class Node {
 
 }
@@ -70,14 +68,11 @@ class GeminiGame extends React.Component {
   }
 
   render() {
-    return e(
-      'p',
-      { onClick: () => console.log(this.state.square) },
-      // JSON.stringify(this.state.square)
-      `I am a Gemini square with a depth of ${this.state.square.getDepth()}.`
-    )
+    return (
+      <p onClick={() => console.log(this.state.square)}>
+        I am a Gemini square with a depth of {this.state.square.getDepth()}.
+      </p>)
   }
 }
 
-const domContainer = document.querySelector('#gemini_game_container')
-ReactDOM.render(e(GeminiGame), domContainer)
+ReactDOM.render(<GeminiGame />, document.querySelector('#gemini_game_container'))
