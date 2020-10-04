@@ -85,6 +85,12 @@ class GeminiSquare extends React.Component {
   render() {
     return (
       <div className='gemini-square'>
+        <ol className='corners'>
+          <li className='corner corner-1'></li>
+          <li className='corner corner-2'></li>
+          <li className='corner corner-3'></li>
+          <li className='corner corner-4'></li>
+        </ol>
         {this.state.square.inscribed && <GeminiSquare square={this.state.square.inscribed} />}
       </div>)
   }

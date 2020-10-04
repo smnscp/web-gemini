@@ -9,6 +9,7 @@
       }
       .gemini-square {
         box-sizing: content-box;
+        position: relative;
         width: 80vmin;
         height: 80vmin;
         border: 1.5vmin groove #a84;
@@ -21,6 +22,41 @@
         height: 70.7106781186548%;
         transform: rotate(45deg);
         border-radius: 1.5vmin;
+      }
+      .gemini-square > .corners {
+        position: absolute;
+        margin: -0.75vmin;
+        padding: 0;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        list-style: none;
+      }
+      .gemini-square > .corners > .corner {
+        position: absolute;
+        margin: -3vmin;
+        padding: 0;
+        width: 0;
+        height: 0;
+        border: 3vmin inset #a84;
+        border-radius: 100%;
+      }
+      .gemini-square > .corners > .corner-1 {
+        top: 0;
+        left: 0;
+      }
+      .gemini-square > .corners > .corner-2 {
+        top: 0;
+        right: 0;
+      }
+      .gemini-square > .corners > .corner-3 {
+        bottom: 0;
+        right: 0;
+      }
+      .gemini-square > .corners > .corner-4 {
+        bottom: 0;
+        left: 0;
       }
     </style>
   </head>
