@@ -37,6 +37,24 @@ class Edge {
       return this.prev.getFirst(ref)
     }
   }
+
+  move() {
+    if (this.side.color) {
+      if (this.color && !this.next.color) {
+        this.next.color = this.side.color
+        this.side.color = this.color
+        this.color = NONE
+        return true
+      }
+      if (!this.color && this.next.color) {
+        this.color = this.side.color
+        this.side.color = this.next.color
+        this.next.color = NONE
+        return true
+      }
+    }
+    return false
+  }
 }
 
 class Square {
@@ -85,13 +103,15 @@ class GeminiGame extends React.Component {
     edge.side.color = BLACK
     edge.next.color = BLACK
 
+    edge.next.side.color = WHITE
+    edge.next.side.next.color = WHITE
+
     this.state = { square: square1 }
   }
 
   render() {
     return (
-      <div onClick={() => console.log(this.state.square)}>
-        <p>I am a Gemini square with a depth of {this.state.square.getDepth()}.</p>
+      <div className='gemini-game'>
         <GeminiSquare square={this.state.square} />
       </div>)
   }
@@ -109,7 +129,11 @@ class GeminiSquare extends React.Component {
       <div className={classNames('gemini-square', {innermost: !inscribed})}>
         <ol className='corners'>
           {this.state.square.edges.map((edge, index) =>
-            <li className={classNames('corner', `corner-${index+1}`, `color-${edge.color}`)} key={index}></li>
+            <li
+              className={classNames('corner', `corner-${index+1}`, `color-${edge.color}`)}
+              onClick={() => {this.state.square.edges[index].move(); this.setState({square: this.state.square})}}
+              key={index}>
+            </li>
           )}
         </ol>
         {inscribed && <GeminiSquare square={inscribed} />}
