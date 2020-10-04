@@ -55,3 +55,15 @@
   bottom: 0;
   left: 0;
 }
+.gemini-square .corner.color-1 {
+  border-color: green;
+}
+.gemini-square .corner.color-2 {
+  border-color: yellow;
+}
+.gemini-square .corner.color-3 {
+  border-color: black;
+}
+.gemini-square .corner.color-4 {
+  border-color: white;
+}

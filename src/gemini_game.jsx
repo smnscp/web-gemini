@@ -1,11 +1,18 @@
 import React from "react";
 import classNames from "classnames";
 
+const NONE = 0
+const GREEN = 1
+const YELLOW = 2
+const BLACK = 3
+const WHITE = 4
+
 class Edge {
   constructor({prev, next, side}) {
     this.prev = prev
     this.next = next
     this.side = side
+    this.color = 0
     if (next) next.prev = this
   }
 
@@ -62,6 +69,22 @@ class GeminiGame extends React.Component {
       .makeCircumscribed()
       .makeCircumscribed()
       .makeCircumscribed()
+
+    let edge = square1.edges[0]
+    edge.color = GREEN
+    edge.side.color = GREEN
+    edge.next.color = GREEN
+
+    edge = edge.next.side
+    edge.color = YELLOW
+    edge.side.color = YELLOW
+    edge.next.color = YELLOW
+
+    edge = edge.next.side
+    edge.color = BLACK
+    edge.side.color = BLACK
+    edge.next.color = BLACK
+
     this.state = { square: square1 }
   }
 
@@ -85,10 +108,9 @@ class GeminiSquare extends React.Component {
     return (
       <div className={classNames('gemini-square', {innermost: !inscribed})}>
         <ol className='corners'>
-          <li className='corner corner-1'></li>
-          <li className='corner corner-2'></li>
-          <li className='corner corner-3'></li>
-          <li className='corner corner-4'></li>
+          {this.state.square.edges.map((edge, index) =>
+            <li className={classNames('corner', `corner-${index+1}`, `color-${edge.color}`)} key={index}></li>
+          )}
         </ol>
         {inscribed && <GeminiSquare square={inscribed} />}
       </div>)
