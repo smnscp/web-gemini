@@ -69,10 +69,24 @@ class GeminiGame extends React.Component {
 
   render() {
     return (
-      <p onClick={() => console.log(this.state.square)}>
-        I am a Gemini square with a depth of {this.state.square.getDepth()}.
-      </p>)
+      <div onClick={() => console.log(this.state.square)}>
+        <p>I am a Gemini square with a depth of {this.state.square.getDepth()}.</p>
+        <GeminiSquare square={this.state.square} />
+      </div>)
   }
 }
 
+class GeminiSquare extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { square: props.square }
+  }
+
+  render() {
+    return (
+      <div className='gemini-square'>
+        {this.state.square.inscribed && <GeminiSquare square={this.state.square.inscribed} />}
+      </div>)
+  }
+}
 ReactDOM.render(<GeminiGame />, document.querySelector('#gemini_game_container'))
