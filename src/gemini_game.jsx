@@ -1,8 +1,4 @@
-'use strict'
-
-class Node {
-
-}
+import React from "react";
 
 class Edge {
   constructor({prev, next, side}) {
@@ -28,7 +24,7 @@ class Edge {
     if (!this.prev) {
       return this
     } else if (this.prev === ref) {
-      throw 'Cannot get first link of a ring!'
+      throw new Error('Cannot get first link of a ring!')
     } else {
       return this.prev.getFirst(ref)
     }
@@ -95,4 +91,5 @@ class GeminiSquare extends React.Component {
       </div>)
   }
 }
-ReactDOM.render(<GeminiGame />, document.querySelector('#gemini_game_container'))
+
+export default GeminiGame
