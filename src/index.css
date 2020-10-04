@@ -11,9 +11,12 @@
   align-items: center;
   justify-content: center;
 }
+.gemini-square.innermost {
+  border: none;
+}
 .gemini-square > .gemini-square {
-  width: 70.7106781186548%;
-  height: 70.7106781186548%;
+  width: 70.71%;
+  height: 70.71%;
   transform: rotate(45deg);
   border-radius: 1.5vmin;
 }

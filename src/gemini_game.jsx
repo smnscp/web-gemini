@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 
 class Edge {
   constructor({prev, next, side}) {
@@ -60,6 +61,7 @@ class GeminiGame extends React.Component {
     const square1 = new Square()
       .makeCircumscribed()
       .makeCircumscribed()
+      .makeCircumscribed()
     this.state = { square: square1 }
   }
 
@@ -79,15 +81,16 @@ class GeminiSquare extends React.Component {
   }
 
   render() {
+    const inscribed = this.state.square.inscribed
     return (
-      <div className='gemini-square'>
+      <div className={classNames('gemini-square', {innermost: !inscribed})}>
         <ol className='corners'>
           <li className='corner corner-1'></li>
           <li className='corner corner-2'></li>
           <li className='corner corner-3'></li>
           <li className='corner corner-4'></li>
         </ol>
-        {this.state.square.inscribed && <GeminiSquare square={this.state.square.inscribed} />}
+        {inscribed && <GeminiSquare square={inscribed} />}
       </div>)
   }
 }
