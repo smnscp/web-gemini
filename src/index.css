@@ -1,12 +1,27 @@
 * {
   box-sizing: border-box;
 }
+body {
+  margin: 2.5vmin;
+  background: #333;
+  color: #ccc;
+  font-family: Georgia;
+}
+.gemini-game {
+  background: #ca5;
+  width: 95vmin;
+  height: 95vmin;
+  border-radius: 1.5vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .gemini-square {
   box-sizing: content-box;
   position: relative;
   width: 80vmin;
   height: 80vmin;
-  border: 1.5vmin groove #a84;
+  border: 1.5vmin solid #a84;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,7 +51,7 @@
   padding: 0;
   width: 0;
   height: 0;
-  border: 3vmin inset #a84;
+  border: 3vmin solid #a84;
   border-radius: 100%;
 }
 .gemini-square > .corners > .corner-1 {
