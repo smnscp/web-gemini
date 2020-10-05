@@ -64,6 +64,11 @@ class Edge {
   setRowColor(color) {
     this.color = this.side.color = this.next.color = color
   }
+
+  isRow() {
+    return this.side && this.color && (this.color === this.side.color)
+      && (this.color === this.next.color)
+  }
 }
 
 class Square {
@@ -86,6 +91,14 @@ class Square {
 
   getDepth() {
     return this.inscribed && this.inscribed.getDepth() + 1 || 1
+  }
+
+  hasRow() {
+    return !!this.edges.filter((edge) => {return edge.isRow()}).length
+  }
+
+  isSolved() {
+    return !this.inscribed || this.hasRow() && this.inscribed.isSolved()
   }
 }
 
