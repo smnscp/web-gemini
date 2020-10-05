@@ -38,6 +38,11 @@ class Edge {
     }
   }
 
+  isMovable() {
+    return this.side && this.side.color
+      && (this.color && !this.next.color || !this.color && this.next.color)
+  }
+
   move() {
     if (this.side && this.side.color) {
       if (this.color && !this.next.color) {
@@ -150,8 +155,16 @@ class GeminiSquare extends React.Component {
         <ol className='edges'>
           {this.state.square.edges.map((edge, index) =>
             <li
-              className={classNames('edge', `edge-${index+1}`, `color-${edge.color}`)}
-              onClick={() => {this.state.square.edges[index].move(); this.setState({square: this.state.square})}}
+              className={classNames(
+                'edge',
+                `edge-${index+1}`,
+                `color-${edge.color}`,
+                {movable: edge.isMovable()}
+              )}
+              onClick={edge.isMovable() && (() => {
+                this.state.square.edges[index].move()
+                this.setState({square: this.state.square})
+              })}
               key={index}>
             </li>
           )}

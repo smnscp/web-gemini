@@ -53,7 +53,7 @@ body {
   background: rgba(255, 255, 255, 0.0);
   transition: background .3s;
 }
-.gemini-square > .edges > .edge:hover {
+.gemini-square > .edges > .edge.movable:hover {
   background: rgba(255, 255, 255, 0.25);
 }
 .gemini-square > .edges > .edge-1 {
