@@ -137,23 +137,19 @@ class GeminiGame extends React.Component {
   render() {
     return (
       <div className='gemini-game'>
-        <GeminiSquare square={this.state.square} />
-      </div>)
+        <GeminiSquare square={this.state.square} onMove={() => this.setState({square: this.state.square})} />
+      </div>
+    )
   }
 }
 
 class GeminiSquare extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { square: props.square }
-  }
-
   render() {
-    const inscribed = this.state.square.inscribed
+    const inscribed = this.props.square.inscribed
     return (
       <div className={classNames('gemini-square', {innermost: !inscribed})}>
         <ol className='edges'>
-          {this.state.square.edges.map((edge, index) =>
+          {this.props.square.edges.map((edge, index) =>
             <li
               className={classNames(
                 'edge',
@@ -162,15 +158,16 @@ class GeminiSquare extends React.Component {
                 {movable: edge.isMovable()}
               )}
               onClick={edge.isMovable() && (() => {
-                this.state.square.edges[index].move()
-                this.setState({square: this.state.square})
+                this.props.square.edges[index].move()
+                this.props.onMove()
               })}
               key={index}>
             </li>
           )}
         </ol>
-        {inscribed && <GeminiSquare square={inscribed} />}
-      </div>)
+        {inscribed && <GeminiSquare square={inscribed} onMove={this.props.onMove} />}
+      </div>
+    )
   }
 }
 
