@@ -55,6 +55,10 @@ class Edge {
     }
     return false
   }
+
+  setRowColor(color) {
+    this.color = this.side.color = this.next.color = color
+  }
 }
 
 class Square {
@@ -88,25 +92,41 @@ class GeminiGame extends React.Component {
       .makeCircumscribed()
       .makeCircumscribed()
 
-    let edge = square1.edges[0]
-    edge.color = GREEN
-    edge.side.color = GREEN
-    edge.next.color = GREEN
-
-    edge = edge.next.side
-    edge.color = YELLOW
-    edge.side.color = YELLOW
-    edge.next.color = YELLOW
-
-    edge = edge.next.side
-    edge.color = BLACK
-    edge.side.color = BLACK
-    edge.next.color = BLACK
-
-    edge.next.side.color = WHITE
-    edge.next.side.next.color = WHITE
-
     this.state = { square: square1 }
+
+    this.initGame(1)
+  }
+
+  initGame(number) {
+    const pivotal = this.state.square.edges[0]
+
+    switch (number) {
+      case 1:
+        pivotal.color = GREEN
+        pivotal.prev.side.color = GREEN
+        pivotal.prev.prev.side.side.color = GREEN
+
+        pivotal.next.side.color = YELLOW
+        pivotal.next.next.color = YELLOW
+        pivotal.prev.side.side.color = YELLOW
+
+        pivotal.next.next.side.color = BLACK
+        pivotal.next.side.side.color = BLACK
+        pivotal.next.side.side.side.color = BLACK
+
+        pivotal.next.next.side.side.side.color = WHITE
+
+        break;
+      default:
+        pivotal.setRowColor(GREEN)
+        pivotal.next.side.setRowColor(YELLOW)
+        pivotal.next.next.side.side.setRowColor(BLACK)
+
+        pivotal.side.side.side.color = WHITE
+        pivotal.prev.side.side.side.color = WHITE
+    }
+
+    this.setState({square: this.state.square})
   }
 
   render() {
