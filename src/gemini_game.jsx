@@ -157,10 +157,10 @@ class GeminiSquare extends React.Component {
                 `color-${edge.color}`,
                 {movable: edge.isMovable()}
               )}
-              onClick={edge.isMovable() && (() => {
+              onClick={edge.isMovable() ? (() => {
                 this.props.square.edges[index].move()
                 this.props.onMove()
-              })}
+              }) : undefined}
               key={index}>
             </li>
           )}
