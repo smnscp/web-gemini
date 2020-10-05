@@ -149,10 +149,21 @@ class GeminiGame extends React.Component {
     return square
   }
 
+  levelUp() {
+    const nextLevel = this.state.level + 1
+    this.setState({
+      square: this.initGame(nextLevel),
+      level: nextLevel,
+    })
+  }
+
   render() {
     return (
       <div className='gemini-game'>
         <GeminiSquare square={this.state.square} onMove={() => this.setState({square: this.state.square})} />
+        <nav>
+          {this.state.square.isSolved() && <button onClick={() => this.levelUp()}>level up!</button>}
+        </nav>
       </div>
     )
   }

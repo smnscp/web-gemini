@@ -8,6 +8,7 @@ body {
   font-family: Georgia;
 }
 .gemini-game {
+  position: relative;
   background: #ca5;
   width: 95vmin;
   height: 95vmin;
@@ -15,6 +16,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.gemini-game nav {
+  position: absolute;
+}
+.gemini-game nav button {
+  font-family: inherit;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 3vmin;
+  text-shadow: none;
+  box-shadow: none;
+  color: inherit;
+  background: green;
+  border: .25vmin solid;
+  border-radius: .5vmin;
+  padding: 2vmin;
 }
 .gemini-square {
   box-sizing: content-box;
