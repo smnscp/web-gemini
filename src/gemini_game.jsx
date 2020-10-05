@@ -105,18 +105,20 @@ class Square {
 class GeminiGame extends React.Component {
   constructor(props) {
     super(props)
-    const square1 = new Square()
-      .makeCircumscribed()
-      .makeCircumscribed()
-      .makeCircumscribed()
-
-    this.state = { square: square1 }
-
-    this.initGame(1)
+    const level = props.level || 1
+    this.state = {
+      square: this.initGame(level),
+      level: level,
+    }
   }
 
   initGame(number) {
-    const pivotal = this.state.square.edges[0]
+    const square = new Square()
+      .makeCircumscribed()
+      .makeCircumscribed()
+      .makeCircumscribed()
+
+    const pivotal = square.edges[0]
 
     switch (number) {
       case 1:
@@ -144,7 +146,7 @@ class GeminiGame extends React.Component {
         pivotal.prev.side.side.side.color = WHITE
     }
 
-    this.setState({square: this.state.square})
+    return square
   }
 
   render() {
