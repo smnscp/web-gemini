@@ -39,7 +39,7 @@ class Edge {
   }
 
   move() {
-    if (this.side.color) {
+    if (this.side && this.side.color) {
       if (this.color && !this.next.color) {
         this.next.color = this.side.color
         this.side.color = this.color
@@ -127,10 +127,10 @@ class GeminiSquare extends React.Component {
     const inscribed = this.state.square.inscribed
     return (
       <div className={classNames('gemini-square', {innermost: !inscribed})}>
-        <ol className='corners'>
+        <ol className='edges'>
           {this.state.square.edges.map((edge, index) =>
             <li
-              className={classNames('corner', `corner-${index+1}`, `color-${edge.color}`)}
+              className={classNames('edge', `edge-${index+1}`, `color-${edge.color}`)}
               onClick={() => {this.state.square.edges[index].move(); this.setState({square: this.state.square})}}
               key={index}>
             </li>

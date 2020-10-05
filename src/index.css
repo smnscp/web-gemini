@@ -35,7 +35,7 @@ body {
   transform: rotate(45deg);
   border-radius: 1.5vmin;
 }
-.gemini-square > .corners {
+.gemini-square > .edges {
   position: absolute;
   margin: -0.75vmin;
   padding: 0;
@@ -45,40 +45,76 @@ body {
   right: 0;
   list-style: none;
 }
-.gemini-square > .corners > .corner {
+.gemini-square > .edges > .edge {
   position: absolute;
-  margin: -3vmin;
+  margin: 0;
   padding: 0;
-  width: 0;
-  height: 0;
-  border: 3vmin solid #a84;
+  border-radius: 3vmin;
+  background: rgba(255, 255, 255, 0.0);
+  transition: background .3s;
+}
+.gemini-square > .edges > .edge:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.gemini-square > .edges > .edge-1 {
+  top: -3vmin;
+  left: 3vmin;
+  right: 3vmin;
+  height: 6vmin;
+}
+.gemini-square > .edges > .edge-2 {
+  top: 3vmin;
+  bottom: 3vmin;
+  right: -3vmin;
+  width: 6vmin;
+}
+.gemini-square > .edges > .edge-3 {
+  left: 3vmin;
+  bottom: -3vmin;
+  right: 3vmin;
+  height: 6vmin;
+}
+.gemini-square > .edges > .edge-4 {
+  top: 3vmin;
+  left: -3vmin;
+  bottom: 3vmin;
+  width: 6vmin;
+}
+.gemini-square > .edges > .edge::before {
+  content: '';
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 6vmin;
+  height: 6vmin;
+  background-color: #a84;
   border-radius: 100%;
 }
-.gemini-square > .corners > .corner-1 {
+.gemini-square > .edges > .edge-1::before {
   top: 0;
-  left: 0;
+  left: -6vmin;
 }
-.gemini-square > .corners > .corner-2 {
-  top: 0;
+.gemini-square > .edges > .edge-2::before {
+  top: -6vmin;
   right: 0;
 }
-.gemini-square > .corners > .corner-3 {
+.gemini-square > .edges > .edge-3::before {
   bottom: 0;
-  right: 0;
+  right: -6vmin;
 }
-.gemini-square > .corners > .corner-4 {
-  bottom: 0;
+.gemini-square > .edges > .edge-4::before {
+  bottom: -6vmin;
   left: 0;
 }
-.gemini-square .corner.color-1 {
-  border-color: green;
+.gemini-square > .edges > .edge.color-1::before {
+  background-color: green;
 }
-.gemini-square .corner.color-2 {
-  border-color: yellow;
+.gemini-square > .edges > .edge.color-2::before {
+  background-color: yellow;
 }
-.gemini-square .corner.color-3 {
-  border-color: black;
+.gemini-square > .edges > .edge.color-3::before {
+  background-color: black;
 }
-.gemini-square .corner.color-4 {
-  border-color: white;
+.gemini-square > .edges > .edge.color-4::before {
+  background-color: white;
 }
