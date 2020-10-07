@@ -105,7 +105,7 @@ class Square {
 class GeminiGame extends React.Component {
   constructor(props) {
     super(props)
-    const level = props.level || 1
+    const level = +props.level || 1
     this.state = {
       square: this.initGame(level),
       level: level,
