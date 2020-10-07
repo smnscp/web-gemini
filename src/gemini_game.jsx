@@ -211,6 +211,31 @@ class GeminiGame extends React.Component {
         moves = 5
 
         break
+      case 25:
+        square = square.makeCircumscribed()
+        pivotal = square.edges[0]
+
+        pivotal.side.color = GREEN
+        pivotal.prev.side.color = GREEN
+        pivotal.next.next.side.side.color = GREEN
+
+        pivotal.side.side.color = YELLOW
+        pivotal.next.next.color = YELLOW
+        pivotal.prev.side.side.color = YELLOW
+
+        pivotal.next.next.side.color = BLACK
+        pivotal.side.side.side.color = BLACK
+        pivotal.next.side.side.side.color = BLACK
+
+        pivotal.next.color = RED
+        pivotal.prev.side.side.side.color = RED
+        pivotal.prev.side.side.side.side.color = RED
+
+        pivotal.next.next.side.side.side.color = WHITE
+
+        moves = 6
+
+        break
       case 6:
       case 7:
       case 8:
