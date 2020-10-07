@@ -1,11 +1,12 @@
 import React from "react";
 import classNames from "classnames";
 
+const WHITE = -1
 const NONE = 0
 const GREEN = 1
 const YELLOW = 2
 const BLACK = 3
-const WHITE = 4
+const RED = 4
 
 class Edge {
   constructor({prev, next, side}) {

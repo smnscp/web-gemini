@@ -124,6 +124,9 @@ body {
   bottom: -6vmin;
   left: 0;
 }
+.gemini-square > .edges > .edge.color--1::before {
+  background-color: white;
+}
 .gemini-square > .edges > .edge.color-1::before {
   background-color: green;
 }
@@ -134,5 +137,5 @@ body {
   background-color: black;
 }
 .gemini-square > .edges > .edge.color-4::before {
-  background-color: white;
+  background-color: firebrick;
 }
