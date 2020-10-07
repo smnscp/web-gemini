@@ -253,7 +253,7 @@ class GeminiGame extends React.Component {
   render() {
     return (
       <div className='gemini-game'>
-        <GeminiSquare square={this.state.square} onMove={() => this.setState({square: this.state.square})} />
+        <GeminiSquare square={this.state.square} onMove={() => this.setState((state) => ({moves: state.moves - 1}))} />
         <nav>
           <p>Level: {this.state.level}</p>
           <p>Moves: {this.state.moves}</p>
@@ -279,8 +279,8 @@ class GeminiSquare extends React.Component {
                 {movable: edge.isMovable()}
               )}
               onClick={edge.isMovable() ? (() => {
-                this.props.square.edges[index].move()
-                this.props.onMove()
+                if (this.props.square.edges[index].move())
+                  this.props.onMove()
               }) : undefined}
               key={index}>
             </li>
