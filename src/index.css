@@ -9,6 +9,7 @@ body {
 }
 .gemini-game {
   position: relative;
+  color: #333;
   background: #ca5;
   width: 95vmin;
   height: 95vmin;
@@ -27,7 +28,7 @@ body {
   font-size: 3vmin;
   text-shadow: none;
   box-shadow: none;
-  color: inherit;
+  color: #ccc;
   background: green;
   border: .25vmin solid;
   border-radius: .5vmin;

@@ -106,21 +106,19 @@ class GeminiGame extends React.Component {
   constructor(props) {
     super(props)
     const level = +props.level || 1
-    this.state = {
-      square: this.initGame(level),
-      level: level,
-    }
+    this.state = this.initGame(level)
   }
 
-  initGame(number) {
-    const square = new Square()
+  initGame(level) {
+    let moves
+    let square = new Square()
       .makeCircumscribed()
       .makeCircumscribed()
       .makeCircumscribed()
 
-    const pivotal = square.edges[0]
+    let pivotal = square.edges[0]
 
-    switch (number) {
+    switch (level) {
       case 1:
         pivotal.color = GREEN
         pivotal.prev.side.color = GREEN
@@ -136,7 +134,9 @@ class GeminiGame extends React.Component {
 
         pivotal.next.next.side.side.side.color = WHITE
 
-        break;
+        moves = 3
+
+        break
       case 2:
         pivotal.next.color = GREEN
         pivotal.side.side.color = GREEN
@@ -152,7 +152,9 @@ class GeminiGame extends React.Component {
 
         pivotal.prev.side.side.color = WHITE
 
-        break;
+        moves = 4
+
+        break
       case 3:
         pivotal.prev.color = GREEN
         pivotal.next.next.side.color = GREEN
@@ -169,7 +171,9 @@ class GeminiGame extends React.Component {
         pivotal.side.color = WHITE
         pivotal.next.next.color = WHITE
 
-        break;
+        moves = 4
+
+        break
       case 4:
         pivotal.setRowColor(GREEN)
 
@@ -184,7 +188,9 @@ class GeminiGame extends React.Component {
         pivotal.prev.side.side.color = WHITE
         pivotal.side.side.side.color = WHITE
 
-        break;
+        moves = 5
+
+        break
       case 5:
         pivotal.side.color = GREEN
         pivotal.side.side.color = GREEN
@@ -201,7 +207,9 @@ class GeminiGame extends React.Component {
         pivotal.next.side.color = WHITE
         pivotal.prev.side.side.color = WHITE
 
-        break;
+        moves = 5
+
+        break
       case 6:
       case 7:
       case 8:
@@ -230,15 +238,16 @@ class GeminiGame extends React.Component {
         pivotal.prev.side.side.side.color = WHITE
     }
 
-    return square
+    return {
+      square: square,
+      level: level,
+      moves: moves,
+    }
   }
 
   levelUp() {
     const nextLevel = this.state.level + 1
-    this.setState({
-      square: this.initGame(nextLevel),
-      level: nextLevel,
-    })
+    this.setState(this.initGame(nextLevel))
   }
 
   render() {
@@ -246,6 +255,8 @@ class GeminiGame extends React.Component {
       <div className='gemini-game'>
         <GeminiSquare square={this.state.square} onMove={() => this.setState({square: this.state.square})} />
         <nav>
+          <p>Level: {this.state.level}</p>
+          <p>Moves: {this.state.moves}</p>
           {this.state.square.isSolved() && <button onClick={() => this.levelUp()}>level up!</button>}
         </nav>
       </div>
