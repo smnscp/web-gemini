@@ -171,7 +171,9 @@ class EdgeComponent extends React.Component {
         this.props.onMove()
     }) : undefined
 
-    return <li className={classes} onClick={onClick} />
+    return <li className={classes}>
+      {onClick && <button onClick={onClick} />}
+    </li>
   }
 }
 
