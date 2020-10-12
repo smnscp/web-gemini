@@ -130,7 +130,7 @@ class GeminiGame extends React.Component {
   render() {
     return (
       <div className='gemini-game'>
-        <GeminiSquare square={this.state.square} onMove={() => this.setState((state) => ({moves: state.moves - 1}))} />
+        <SquareComponent square={this.state.square} onMove={() => this.setState((state) => ({moves: state.moves - 1}))} />
         <nav>
           <p>Level: {this.state.level}</p>
           <p>Moves: {this.state.moves}</p>
@@ -141,31 +141,37 @@ class GeminiGame extends React.Component {
   }
 }
 
-class GeminiSquare extends React.Component {
+class SquareComponent extends React.Component {
   render() {
     const inscribed = this.props.square.inscribed
     return (
       <div className={classNames('gemini-square', {innermost: !inscribed})}>
         <ol className='edges'>
           {this.props.square.edges.map((edge, index) =>
-            <li
-              className={classNames(
-                'edge',
-                `edge-${index+1}`,
-                `color-${edge.color}`,
-                {movable: edge.isMovable()}
-              )}
-              onClick={edge.isMovable() ? (() => {
-                if (this.props.square.edges[index].move())
-                  this.props.onMove()
-              }) : undefined}
-              key={index}>
-            </li>
+            <EdgeComponent edge={edge} key={index} index={index} onMove={this.props.onMove} />
           )}
         </ol>
-        {inscribed && <GeminiSquare square={inscribed} onMove={this.props.onMove} />}
+        {inscribed && <SquareComponent square={inscribed} onMove={this.props.onMove} />}
       </div>
     )
+  }
+}
+
+class EdgeComponent extends React.Component {
+  render() {
+    const edge = this.props.edge
+    const classes = classNames(
+      'edge',
+      `edge-${this.props.index+1}`,
+      `color-${edge.color}`,
+      {movable: edge.isMovable()}
+    )
+    const onClick = edge.isMovable() ? (() => {
+      if (edge.move())
+        this.props.onMove()
+    }) : undefined
+
+    return <li className={classes} onClick={onClick} />
   }
 }
 
