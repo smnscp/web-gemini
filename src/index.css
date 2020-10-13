@@ -35,99 +35,60 @@ body {
   padding: 2vmin;
 }
 .gemini-game .ring {
-  box-sizing: content-box;
-  position: relative;
+  position: absolute;
   width: 80vmin;
   height: 80vmin;
-  border: 1.5vmin solid #a84;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.gemini-game .ring.innermost {
-  border: none;
 }
 .gemini-game .ring > .ring {
   width: 70.71%;
   height: 70.71%;
   transform: rotate(45deg);
-  border-radius: 1.5vmin;
 }
 .gemini-game .ring > .edges {
   position: absolute;
-  margin: -0.75vmin;
+  margin: 0;
   padding: 0;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
   list-style: none;
+  width: 100%;
+  height: 100%;
 }
 .gemini-game .ring > .edges > .edge {
   position: absolute;
+  top: -1.5vmin;
+  right: 0;
+  bottom: 0;
+  left: 0;
   margin: 0;
   padding: 0;
+  border-top: 1.5vmin solid #a84;
+  transform-origin: 50% calc(50% + 0.75vmin);
 }
-.gemini-game .ring > .edges > .edge button {
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 3vmin;
-  background: rgba(255, 255, 255, 0.0);
-  transition: background .3s;
-}
-.gemini-game .ring > .edges > .edge button:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
-.gemini-game .ring > .edges > .edge-1 {
-  top: -3vmin;
-  left: 3vmin;
-  right: 3vmin;
-  height: 6vmin;
+.gemini-game .ring.innermost > .edges > .edge {
+  border-color: transparent;
 }
 .gemini-game .ring > .edges > .edge-2 {
-  top: 3vmin;
-  bottom: 3vmin;
-  right: -3vmin;
-  width: 6vmin;
+  transform: rotate(90deg);
 }
 .gemini-game .ring > .edges > .edge-3 {
-  left: 3vmin;
-  bottom: -3vmin;
-  right: 3vmin;
-  height: 6vmin;
+  transform: rotate(180deg);
 }
 .gemini-game .ring > .edges > .edge-4 {
-  top: 3vmin;
-  left: -3vmin;
-  bottom: 3vmin;
-  width: 6vmin;
+  transform: rotate(270deg);
 }
 .gemini-game .ring > .edges > .edge::before {
   content: '';
   position: absolute;
-  margin: 0;
-  padding: 0;
+  top: -.75vmin;
+  left: -.75vmin;
   width: 6vmin;
   height: 6vmin;
+  margin: -3vmin 0 0 -3vmin;
   background-color: #a84;
   border-radius: 100%;
-}
-.gemini-game .ring > .edges > .edge-1::before {
-  top: 0;
-  left: -6vmin;
-}
-.gemini-game .ring > .edges > .edge-2::before {
-  top: -6vmin;
-  right: 0;
-}
-.gemini-game .ring > .edges > .edge-3::before {
-  bottom: 0;
-  right: -6vmin;
-}
-.gemini-game .ring > .edges > .edge-4::before {
-  bottom: -6vmin;
-  left: 0;
+  z-index: 1000;
 }
 .gemini-game .ring > .edges > .edge.color--1::before {
   background-color: white;
@@ -143,4 +104,41 @@ body {
 }
 .gemini-game .ring > .edges > .edge.color-4::before {
   background-color: firebrick;
+}
+.gemini-game .ring > .edges > .edge button {
+  position: absolute;
+  top: -3vmin;
+  width: 100%;
+  height: 3vmin;
+  border: none;
+  border-radius: 3vmin;
+  background: rgba(255, 255, 255, 0);
+  transition: background .3s;
+  z-index: 1000;
+}
+.gemini-game .ring > .edges > .edge button:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+
+.gemini-game-5 .ring > .ring {
+  width: 80.8%;
+  height: 80.8%;
+  transform: rotate(36deg);
+}
+.gemini-game-5 .ring > .edges {
+  width: 72.5%;
+  height: 100%;
+}
+.gemini-game-5 .ring > .edges > .edge-2 {
+  transform: rotate(72deg);
+}
+.gemini-game-5 .ring > .edges > .edge-3 {
+  transform: rotate(144deg);
+}
+.gemini-game-5 .ring > .edges > .edge-4 {
+  transform: rotate(216deg);
+}
+.gemini-game-5 .ring > .edges > .edge-5 {
+  transform: rotate(288deg);
 }
