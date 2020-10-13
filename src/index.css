@@ -34,7 +34,7 @@ body {
   border-radius: .5vmin;
   padding: 2vmin;
 }
-.gemini-square {
+.gemini-game .ring {
   box-sizing: content-box;
   position: relative;
   width: 80vmin;
@@ -44,16 +44,16 @@ body {
   align-items: center;
   justify-content: center;
 }
-.gemini-square.innermost {
+.gemini-game .ring.innermost {
   border: none;
 }
-.gemini-square > .gemini-square {
+.gemini-game .ring > .ring {
   width: 70.71%;
   height: 70.71%;
   transform: rotate(45deg);
   border-radius: 1.5vmin;
 }
-.gemini-square > .edges {
+.gemini-game .ring > .edges {
   position: absolute;
   margin: -0.75vmin;
   padding: 0;
@@ -63,12 +63,12 @@ body {
   right: 0;
   list-style: none;
 }
-.gemini-square > .edges > .edge {
+.gemini-game .ring > .edges > .edge {
   position: absolute;
   margin: 0;
   padding: 0;
 }
-.gemini-square > .edges > .edge button {
+.gemini-game .ring > .edges > .edge button {
   width: 100%;
   height: 100%;
   border: none;
@@ -76,34 +76,34 @@ body {
   background: rgba(255, 255, 255, 0.0);
   transition: background .3s;
 }
-.gemini-square > .edges > .edge button:hover {
+.gemini-game .ring > .edges > .edge button:hover {
   background: rgba(255, 255, 255, 0.25);
 }
-.gemini-square > .edges > .edge-1 {
+.gemini-game .ring > .edges > .edge-1 {
   top: -3vmin;
   left: 3vmin;
   right: 3vmin;
   height: 6vmin;
 }
-.gemini-square > .edges > .edge-2 {
+.gemini-game .ring > .edges > .edge-2 {
   top: 3vmin;
   bottom: 3vmin;
   right: -3vmin;
   width: 6vmin;
 }
-.gemini-square > .edges > .edge-3 {
+.gemini-game .ring > .edges > .edge-3 {
   left: 3vmin;
   bottom: -3vmin;
   right: 3vmin;
   height: 6vmin;
 }
-.gemini-square > .edges > .edge-4 {
+.gemini-game .ring > .edges > .edge-4 {
   top: 3vmin;
   left: -3vmin;
   bottom: 3vmin;
   width: 6vmin;
 }
-.gemini-square > .edges > .edge::before {
+.gemini-game .ring > .edges > .edge::before {
   content: '';
   position: absolute;
   margin: 0;
@@ -113,34 +113,34 @@ body {
   background-color: #a84;
   border-radius: 100%;
 }
-.gemini-square > .edges > .edge-1::before {
+.gemini-game .ring > .edges > .edge-1::before {
   top: 0;
   left: -6vmin;
 }
-.gemini-square > .edges > .edge-2::before {
+.gemini-game .ring > .edges > .edge-2::before {
   top: -6vmin;
   right: 0;
 }
-.gemini-square > .edges > .edge-3::before {
+.gemini-game .ring > .edges > .edge-3::before {
   bottom: 0;
   right: -6vmin;
 }
-.gemini-square > .edges > .edge-4::before {
+.gemini-game .ring > .edges > .edge-4::before {
   bottom: -6vmin;
   left: 0;
 }
-.gemini-square > .edges > .edge.color--1::before {
+.gemini-game .ring > .edges > .edge.color--1::before {
   background-color: white;
 }
-.gemini-square > .edges > .edge.color-1::before {
+.gemini-game .ring > .edges > .edge.color-1::before {
   background-color: green;
 }
-.gemini-square > .edges > .edge.color-2::before {
+.gemini-game .ring > .edges > .edge.color-2::before {
   background-color: yellow;
 }
-.gemini-square > .edges > .edge.color-3::before {
+.gemini-game .ring > .edges > .edge.color-3::before {
   background-color: black;
 }
-.gemini-square > .edges > .edge.color-4::before {
+.gemini-game .ring > .edges > .edge.color-4::before {
   background-color: firebrick;
 }

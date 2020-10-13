@@ -66,7 +66,7 @@ class Edge {
   }
 }
 
-class Square {
+class Ring {
   constructor(inscribed) {
     this.inscribed = inscribed
 
@@ -81,7 +81,7 @@ class Square {
   }
 
   makeCircumscribed() {
-    return this.circumscribed = new Square(this)
+    return this.circumscribed = new Ring(this)
   }
 
   getDepth() {
@@ -105,18 +105,18 @@ class GeminiGame extends React.Component {
   }
 
   initGame(level) {
-    let square = new Square()
+    let ring = new Ring()
       .makeCircumscribed()
       .makeCircumscribed()
       .makeCircumscribed()
 
-    if (level > 24) square = square.makeCircumscribed()
+    if (level > 24) ring = ring.makeCircumscribed()
 
-    const pivotal = square.edges[0]
+    const pivotal = ring.edges[0]
     const moves = setupLevel(pivotal, level)
 
     return {
-      square: square,
+      ring: ring,
       level: level,
       moves: moves,
     }
@@ -130,28 +130,28 @@ class GeminiGame extends React.Component {
   render() {
     return (
       <div className='gemini-game'>
-        <SquareComponent square={this.state.square} onMove={() => this.setState((state) => ({moves: state.moves - 1}))} />
+        <RingComponent ring={this.state.ring} onMove={() => this.setState((state) => ({moves: state.moves - 1}))} />
         <nav>
           <p>Level: {this.state.level}</p>
           <p>Moves: {this.state.moves}</p>
-          {this.state.square.isSolved() && <button onClick={() => this.levelUp()}>level up!</button>}
+          {this.state.ring.isSolved() && <button onClick={() => this.levelUp()}>level up!</button>}
         </nav>
       </div>
     )
   }
 }
 
-class SquareComponent extends React.Component {
+class RingComponent extends React.Component {
   render() {
-    const inscribed = this.props.square.inscribed
+    const inscribed = this.props.ring.inscribed
     return (
-      <div className={classNames('gemini-square', {innermost: !inscribed})}>
+      <div className={classNames('ring', {innermost: !inscribed})}>
         <ol className='edges'>
-          {this.props.square.edges.map((edge, index) =>
+          {this.props.ring.edges.map((edge, index) =>
             <EdgeComponent edge={edge} key={index} index={index} onMove={this.props.onMove} />
           )}
         </ol>
-        {inscribed && <SquareComponent square={inscribed} onMove={this.props.onMove} />}
+        {inscribed && <RingComponent ring={inscribed} onMove={this.props.onMove} />}
       </div>
     )
   }
