@@ -67,21 +67,25 @@ class Edge {
 }
 
 class Ring {
-  constructor(inscribed) {
+  constructor({inscribed, length = 4} = {}) {
     this.inscribed = inscribed
+    this.edges = []
+    this.length = length
 
-    const edge1 = new Edge({
-      side: inscribed && inscribed.edges[0],
-    })
-    const edge2 = edge1.makeNext()
-    const edge3 = edge2.makeNext()
-    const edge4 = edge3.makeLast()
-
-    this.edges = [edge1, edge2, edge3, edge4]
+    for (let i = 1, edge; i <= length; ++i) {
+      if (!edge) {
+        edge = new Edge({
+          side: inscribed && inscribed.edges[0],
+        })
+      } else {
+        edge = edge.makeNext(i == length)
+      }
+      this.edges.push(edge)
+    }
   }
 
   makeCircumscribed() {
-    return this.circumscribed = new Ring(this)
+    return this.circumscribed = new Ring({inscribed: this, length: this.length})
   }
 
   getDepth() {
@@ -105,12 +109,13 @@ class GeminiGame extends React.Component {
   }
 
   initGame(level) {
-    let ring = new Ring()
-      .makeCircumscribed()
-      .makeCircumscribed()
-      .makeCircumscribed()
+    let length = level > 25 ? 5 : 4
+    let depth = level > 24 ? 5 : 4
+    let ring = new Ring({length: length})
 
-    if (level > 24) ring = ring.makeCircumscribed()
+    for (let i = 1; i < depth; ++i) {
+      ring = ring.makeCircumscribed()
+    }
 
     const pivotal = ring.edges[0]
     const moves = setupLevel(pivotal, level)
@@ -129,7 +134,7 @@ class GeminiGame extends React.Component {
 
   render() {
     return (
-      <div className='gemini-game'>
+      <div className={classNames('gemini-game', `gemini-game-${this.state.ring.length}`)}>
         <RingComponent ring={this.state.ring} onMove={() => this.setState((state) => ({moves: state.moves - 1}))} />
         <nav>
           <p>Level: {this.state.level}</p>
