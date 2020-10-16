@@ -107,6 +107,31 @@ const setupLevel = (pivotal, level) => {
       pivotal.next.next.side.side.side.color = WHITE
 
       return 5
+    case 7:
+      pivotal.color = BLACK
+      pivotal.next.color = YELLOW
+      pivotal.next.next.next.side.side.color = BLACK
+      pivotal.next.next.side.color = GREEN
+      pivotal.next.next.side.side.color = GREEN
+      pivotal.next.next.side.side.side.color = BLACK
+      pivotal.next.side.color = GREEN
+      pivotal.next.side.side.color = WHITE
+      pivotal.next.side.side.side.color = WHITE
+      pivotal.side.color = YELLOW
+      pivotal.side.side.side.color = YELLOW
+      return 5
+    case 8:
+      pivotal.next.next.color = YELLOW
+      pivotal.next.next.next.color = BLACK
+      pivotal.next.next.next.side.color = BLACK
+      pivotal.next.next.next.side.side.side.color = GREEN
+      pivotal.next.next.side.color = YELLOW
+      pivotal.next.next.side.side.color = WHITE
+      pivotal.next.next.side.side.side.color = GREEN
+      pivotal.next.side.side.color = GREEN
+      pivotal.side.color = BLACK
+      pivotal.side.side.color = YELLOW
+      return 6
     case 25:
       pivotal.side.color = GREEN
       pivotal.prev.side.color = GREEN
