@@ -143,9 +143,62 @@ const setupLevel = (pivotal, level) => {
 
       return 5
     default:
-
-      return 0
+      return setupRandomLevel(pivotal, level ** .75 )
   }
+}
+
+const rndInt = cap => Math.floor(Math.random() * cap)
+
+const setupRandomGoal = (pivotal) => {
+  const length = pivotal.getLength()
+  let edge = pivotal.walkAround(rndInt(length))
+  let colors = [...Array(pivotal.getDepth()).keys()].slice(1)
+  while (colors.length) {
+    edge = edge.walkAround(rndInt(length - 2))
+    let colorIndex = rndInt(colors.length)
+    edge.setRowColor(colors[colorIndex])
+    colors.splice(colorIndex, 1)
+    edge = edge.side.next
+  }
+}
+
+const placeRandomPlaceholders = (pivotal, min = 1, max = 2) => {
+  let tries = min + max
+  let placed = 0
+
+  while (placed < min || tries > 0 && placed < max) {
+    const edge = pivotal.goToRandom()
+
+    if (!edge.color) {
+      edge.color = WHITE
+      ++placed
+    }
+    --tries
+  }
+}
+
+const performRandomMoves = (pivotal, min = 3, max = 7) => {
+  let tries = (min + max) * pivotal.getLength()
+  let moves = 0
+  let lastMoved
+
+  while (moves < min || tries > 0 && moves < max) {
+    const edge = pivotal.goToRandom()
+
+    if (edge !== lastMoved && edge.move()) {
+      ++moves
+      lastMoved = edge
+    }
+    --tries
+  }
+
+  return moves
+}
+
+const setupRandomLevel = (pivotal, moves) => {
+  setupRandomGoal(pivotal)
+  placeRandomPlaceholders(pivotal)
+  return performRandomMoves(pivotal, moves, moves)
 }
 
 export default setupLevel
