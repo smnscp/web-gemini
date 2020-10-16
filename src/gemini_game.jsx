@@ -33,6 +33,46 @@ class Edge {
     }
   }
 
+  getDepth() {
+    return this.side && this.side.getDepth() + 1 || 1
+  }
+
+  getLength() {
+    let edge = this.next
+    let count = 1
+    while (edge && edge !== this) {
+      edge = edge.next
+      ++count
+    }
+    return count
+  }
+
+  walkAround(steps) {
+    let edge = this
+    let count = Math.round(Math.abs(steps))
+    while (count--) {
+      edge = (steps > 0) ? edge.next : edge.prev
+    }
+    return edge
+  }
+
+  stepInto(steps) {
+    let edge = this
+    let count = Math.round(steps)
+    while (0 < count--) {
+      edge = edge.side
+    }
+    return edge
+  }
+
+  goToRandom() {
+    const rndInt = cap => Math.floor(Math.random() * cap)
+
+    return this
+      .walkAround(rndInt(this.getLength()))
+      .stepInto(rndInt(this.getDepth()))
+  }
+
   isMovable() {
     return this.side && this.side.color
       && (this.color && !this.next.color || !this.color && this.next.color)
@@ -110,7 +150,7 @@ class GeminiGame extends React.Component {
 
   initGame(level) {
     let length = level > 25 ? 5 : 4
-    let depth = level > 24 ? 5 : 4
+    let depth = level == 25 ? 5 : 4
     let ring = new Ring({length: length})
 
     for (let i = 1; i < depth; ++i) {
