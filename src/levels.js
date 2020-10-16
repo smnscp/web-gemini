@@ -108,6 +108,208 @@ const setupLevel = (pivotal, level) => {
       pivotal.walkInto(3).walkAround(2).color = GREEN
       pivotal.walkInto(3).walkAround(3).color = GREEN
       return 6
+    case 9:
+      pivotal.walkAround(1).color = YELLOW
+      pivotal.walkAround(2).color = GREEN
+      pivotal.walkAround(3).color = BLACK
+      pivotal.walkInto(1).walkAround(1).color = YELLOW
+      pivotal.walkInto(1).walkAround(2).color = BLACK
+      pivotal.walkInto(1).walkAround(3).color = BLACK
+      pivotal.walkInto(2).color = YELLOW
+      pivotal.walkInto(2).walkAround(1).color = WHITE
+      pivotal.walkInto(2).walkAround(3).color = WHITE
+      pivotal.walkInto(3).walkAround(1).color = GREEN
+      pivotal.walkInto(3).walkAround(2).color = GREEN
+      return 6
+    case 10:
+      pivotal.color = BLACK
+      pivotal.walkAround(1).color = YELLOW
+      pivotal.walkInto(1).color = YELLOW
+      pivotal.walkInto(1).walkAround(1).color = WHITE
+      pivotal.walkInto(1).walkAround(3).color = GREEN
+      pivotal.walkInto(2).color = GREEN
+      pivotal.walkInto(2).walkAround(1).color = GREEN
+      pivotal.walkInto(2).walkAround(3).color = YELLOW
+      pivotal.walkInto(3).color = WHITE
+      pivotal.walkInto(3).walkAround(1).color = BLACK
+      pivotal.walkInto(3).walkAround(2).color = BLACK
+      return 6
+    case 11:
+      pivotal.color = BLACK
+      pivotal.walkAround(1).color = GREEN
+      pivotal.walkAround(2).color = YELLOW
+      pivotal.walkInto(1).walkAround(1).color = YELLOW
+      pivotal.walkInto(1).walkAround(2).color = YELLOW
+      pivotal.walkInto(1).walkAround(3).color = BLACK
+      pivotal.walkInto(2).color = GREEN
+      pivotal.walkInto(2).walkAround(1).color = WHITE
+      pivotal.walkInto(2).walkAround(2).color = BLACK
+      pivotal.walkInto(2).walkAround(3).color = WHITE
+      pivotal.walkInto(3).walkAround(3).color = GREEN
+      return 6
+    case 12:
+      pivotal.walkAround(1).color = GREEN
+      pivotal.walkAround(2).color = YELLOW
+      pivotal.walkInto(1).color = GREEN
+      pivotal.walkInto(1).walkAround(1).color = BLACK
+      pivotal.walkInto(1).walkAround(3).color = WHITE
+      pivotal.walkInto(2).walkAround(1).color = BLACK
+      pivotal.walkInto(2).walkAround(2).color = YELLOW
+      pivotal.walkInto(2).walkAround(3).color = YELLOW
+      pivotal.walkInto(3).color = GREEN
+      pivotal.walkInto(3).walkAround(1).color = BLACK
+      pivotal.walkInto(3).walkAround(2).color = WHITE
+      return 7
+    case 13:
+      pivotal.color = BLACK
+      pivotal.walkAround(2).color = GREEN
+      pivotal.walkAround(3).color = YELLOW
+      pivotal.walkInto(1).walkAround(1).color = WHITE
+      pivotal.walkInto(1).walkAround(2).color = GREEN
+      pivotal.walkInto(1).walkAround(3).color = BLACK
+      pivotal.walkInto(2).color = BLACK
+      pivotal.walkInto(2).walkAround(1).color = GREEN
+      pivotal.walkInto(2).walkAround(2).color = WHITE
+      pivotal.walkInto(3).walkAround(2).color = YELLOW
+      pivotal.walkInto(3).walkAround(3).color = YELLOW
+      return 7
+    case 14:
+      pivotal.color = YELLOW
+      pivotal.walkAround(1).color = BLACK
+      pivotal.walkInto(1).color = YELLOW
+      pivotal.walkInto(1).walkAround(1).color = WHITE
+      pivotal.walkInto(1).walkAround(2).color = BLACK
+      pivotal.walkInto(2).color = YELLOW
+      pivotal.walkInto(2).walkAround(1).color = GREEN
+      pivotal.walkInto(2).walkAround(3).color = GREEN
+      pivotal.walkInto(3).color = BLACK
+      pivotal.walkInto(3).walkAround(1).color = GREEN
+      return 7
+    case 15:
+      pivotal.walkAround(1).color = GREEN
+      pivotal.walkAround(2).color = BLACK
+      pivotal.walkAround(3).color = YELLOW
+      pivotal.walkInto(1).color = YELLOW
+      pivotal.walkInto(1).walkAround(2).color = BLACK
+      pivotal.walkInto(1).walkAround(3).color = WHITE
+      pivotal.walkInto(2).walkAround(1).color = WHITE
+      pivotal.walkInto(2).walkAround(2).color = BLACK
+      pivotal.walkInto(2).walkAround(3).color = GREEN
+      pivotal.walkInto(3).walkAround(2).color = YELLOW
+      pivotal.walkInto(3).walkAround(3).color = GREEN
+      return 7
+    case 16:
+      pivotal.color = WHITE
+      pivotal.walkAround(2).color = BLACK
+      pivotal.walkInto(1).walkAround(1).color = BLACK
+      pivotal.walkInto(1).walkAround(3).setRowColor(GREEN)
+      pivotal.walkInto(2).walkAround(1).setRowColor(YELLOW)
+      pivotal.walkInto(3).color = WHITE
+      pivotal.walkInto(3).walkAround(3).color = BLACK
+      return 8
+    case 17:
+      pivotal.color = GREEN
+      pivotal.walkAround(2).color = YELLOW
+      pivotal.walkAround(3).color = BLACK
+      pivotal.walkInto(1).color = WHITE
+      pivotal.walkInto(1).walkAround(2).color = YELLOW
+      pivotal.walkInto(1).walkAround(3).color = BLACK
+      pivotal.walkInto(2).color = GREEN
+      pivotal.walkInto(2).walkAround(1).color = GREEN
+      pivotal.walkInto(2).walkAround(2).color = WHITE
+      pivotal.walkInto(3).color = YELLOW
+      pivotal.walkInto(3).walkAround(2).color = BLACK
+      return 8
+    case 18:
+      pivotal.walkAround(1).color = GREEN
+      pivotal.walkAround(2).color = BLACK
+      pivotal.walkInto(1).walkAround(1).color = GREEN
+      pivotal.walkInto(1).walkAround(2).color = YELLOW
+      pivotal.walkInto(1).walkAround(3).color = WHITE
+      pivotal.walkInto(2).color = YELLOW
+      pivotal.walkInto(2).walkAround(1).color = BLACK
+      pivotal.walkInto(2).walkAround(2).color = YELLOW
+      pivotal.walkInto(3).color = WHITE
+      pivotal.walkInto(3).walkAround(1).color = BLACK
+      pivotal.walkInto(3).walkAround(2).color = GREEN
+      return 8
+    case 19:
+      pivotal.color = GREEN
+      pivotal.walkAround(3).color = WHITE
+      pivotal.walkInto(1).color = BLACK
+      pivotal.walkInto(1).walkAround(1).color = YELLOW
+      pivotal.walkInto(1).walkAround(2).color = YELLOW
+      pivotal.walkInto(2).color = GREEN
+      pivotal.walkInto(2).walkAround(2).color = GREEN
+      pivotal.walkInto(2).walkAround(3).color = YELLOW
+      pivotal.walkInto(3).color = BLACK
+      pivotal.walkInto(3).walkAround(1).color = BLACK
+      pivotal.walkInto(3).walkAround(2).color = WHITE
+      return 9
+    case 20:
+      pivotal.color = GREEN
+      pivotal.walkAround(2).color = WHITE
+      pivotal.walkAround(3).color = BLACK
+      pivotal.walkInto(1).color = GREEN
+      pivotal.walkInto(1).walkAround(1).color = YELLOW
+      pivotal.walkInto(1).walkAround(2).color = YELLOW
+      pivotal.walkInto(2).color = GREEN
+      pivotal.walkInto(2).walkAround(2).color = BLACK
+      pivotal.walkInto(2).walkAround(3).color = WHITE
+      pivotal.walkInto(3).color = BLACK
+      pivotal.walkInto(3).walkAround(1).color = YELLOW
+      return 9
+    case 21:
+      pivotal.color = YELLOW
+      pivotal.walkAround(1).color = BLACK
+      pivotal.walkInto(1).color = BLACK
+      pivotal.walkInto(1).walkAround(2).color = WHITE
+      pivotal.walkInto(1).walkAround(3).color = YELLOW
+      pivotal.walkInto(2).walkAround(1).setRowColor(GREEN)
+      pivotal.walkInto(2).walkAround(3).color = YELLOW
+      pivotal.walkInto(3).color = BLACK
+      pivotal.walkInto(3).walkAround(2).color = WHITE
+      return 10
+    case 22:
+      pivotal.walkAround(2).color = WHITE
+      pivotal.walkAround(3).color = YELLOW
+      pivotal.walkInto(1).color = BLACK
+      pivotal.walkInto(1).walkAround(2).color = YELLOW
+      pivotal.walkInto(1).walkAround(3).color = GREEN
+      pivotal.walkInto(2).color = BLACK
+      pivotal.walkInto(2).walkAround(1).color = BLACK
+      pivotal.walkInto(2).walkAround(2).color = GREEN
+      pivotal.walkInto(3).color = WHITE
+      pivotal.walkInto(3).walkAround(1).color = YELLOW
+      pivotal.walkInto(3).walkAround(2).color = GREEN
+      return 10
+    case 23:
+      pivotal.color = GREEN
+      pivotal.walkAround(2).color = GREEN
+      pivotal.walkAround(3).color = BLACK
+      pivotal.walkInto(1).walkAround(1).color = GREEN
+      pivotal.walkInto(1).walkAround(2).color = YELLOW
+      pivotal.walkInto(1).walkAround(3).color = BLACK
+      pivotal.walkInto(2).color = YELLOW
+      pivotal.walkInto(2).walkAround(2).color = WHITE
+      pivotal.walkInto(2).walkAround(3).color = BLACK
+      pivotal.walkInto(3).color = YELLOW
+      pivotal.walkInto(3).walkAround(3).color = WHITE
+      return 11
+    case 24:
+      pivotal.walkAround(1).color = GREEN
+      pivotal.walkAround(3).color = WHITE
+      pivotal.walkInto(1).color = BLACK
+      pivotal.walkInto(1).walkAround(1).color = WHITE
+      pivotal.walkInto(1).walkAround(3).color = YELLOW
+      pivotal.walkInto(2).color = GREEN
+      pivotal.walkInto(2).walkAround(1).color = GREEN
+      pivotal.walkInto(2).walkAround(2).color = BLACK
+      pivotal.walkInto(3).color = YELLOW
+      pivotal.walkInto(3).walkAround(1).color = YELLOW
+      pivotal.walkInto(3).walkAround(2).color = BLACK
+      return 12
+      // End of original levels.
     case 25:
       // Depth of 5.
       pivotal.walkAround(1).color = RED
