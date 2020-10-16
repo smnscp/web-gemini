@@ -56,7 +56,7 @@ class Edge {
     return edge
   }
 
-  stepInto(steps) {
+  walkInto(steps) {
     let edge = this
     let count = Math.round(steps)
     while (0 < count--) {
@@ -70,7 +70,7 @@ class Edge {
 
     return this
       .walkAround(rndInt(this.getLength()))
-      .stepInto(rndInt(this.getDepth()))
+      .walkInto(rndInt(this.getDepth()))
   }
 
   isMovable() {

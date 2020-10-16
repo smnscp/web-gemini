@@ -14,158 +14,130 @@ const setupLevel = (pivotal, level) => {
   switch (level) {
     case 1:
       pivotal.color = GREEN
-      pivotal.prev.side.color = GREEN
-      pivotal.next.next.side.side.color = GREEN
-
-      pivotal.next.side.color = YELLOW
-      pivotal.next.next.color = YELLOW
-      pivotal.prev.side.side.color = YELLOW
-
-      pivotal.next.next.side.color = BLACK
-      pivotal.next.side.side.color = BLACK
-      pivotal.next.side.side.side.color = BLACK
-
-      pivotal.next.next.side.side.side.color = WHITE
-
+      pivotal.walkAround(2).color = YELLOW
+      pivotal.walkInto(1).walkAround(1).color = YELLOW
+      pivotal.walkInto(1).walkAround(2).color = BLACK
+      pivotal.walkInto(1).walkAround(3).color = GREEN
+      pivotal.walkInto(2).walkAround(1).color = BLACK
+      pivotal.walkInto(2).walkAround(2).color = GREEN
+      pivotal.walkInto(2).walkAround(3).color = YELLOW
+      pivotal.walkInto(3).walkAround(1).color = BLACK
+      pivotal.walkInto(3).walkAround(2).color = WHITE
       return 3
     case 2:
-      pivotal.next.color = GREEN
-      pivotal.side.side.color = GREEN
-      pivotal.prev.side.color = GREEN
-
-      pivotal.prev.color = YELLOW
-      pivotal.next.next.side.color = YELLOW
-      pivotal.next.next.side.side.color = YELLOW
-
-      pivotal.next.side.color = BLACK
-      pivotal.side.side.side.color = BLACK
-      pivotal.prev.side.side.side.color = BLACK
-
-      pivotal.prev.side.side.color = WHITE
-
+      pivotal.walkAround(1).color = GREEN
+      pivotal.walkAround(3).color = YELLOW
+      pivotal.walkInto(1).walkAround(1).color = BLACK
+      pivotal.walkInto(1).walkAround(2).color = YELLOW
+      pivotal.walkInto(1).walkAround(3).color = GREEN
+      pivotal.walkInto(2).color = GREEN
+      pivotal.walkInto(2).walkAround(2).color = YELLOW
+      pivotal.walkInto(2).walkAround(3).color = WHITE
+      pivotal.walkInto(3).color = BLACK
+      pivotal.walkInto(3).walkAround(3).color = BLACK
       return 4
     case 3:
-      pivotal.prev.color = GREEN
-      pivotal.next.next.side.color = GREEN
-      pivotal.next.next.side.side.side.color = GREEN
-
-      pivotal.next.side.color = YELLOW
-      pivotal.next.side.side.color = YELLOW
-      pivotal.side.side.side.color = YELLOW
-
-      pivotal.next.color = BLACK
-      pivotal.side.side.color = BLACK
-      pivotal.prev.side.side.color = BLACK
-
-      pivotal.side.color = WHITE
-      pivotal.next.next.color = WHITE
-
+      pivotal.walkAround(1).color = BLACK
+      pivotal.walkAround(2).color = WHITE
+      pivotal.walkAround(3).color = GREEN
+      pivotal.walkInto(1).color = WHITE
+      pivotal.walkInto(1).walkAround(1).color = YELLOW
+      pivotal.walkInto(1).walkAround(2).color = GREEN
+      pivotal.walkInto(2).color = BLACK
+      pivotal.walkInto(2).walkAround(1).color = YELLOW
+      pivotal.walkInto(2).walkAround(3).color = BLACK
+      pivotal.walkInto(3).color = YELLOW
+      pivotal.walkInto(3).walkAround(2).color = GREEN
       return 4
     case 4:
       pivotal.setRowColor(GREEN)
-
-      pivotal.next.side.color = YELLOW
-      pivotal.side.side.color = YELLOW
-      pivotal.prev.side.side.side.color = YELLOW
-
-      pivotal.prev.color = BLACK
-      pivotal.next.next.side.color = BLACK
-      pivotal.next.next.side.side.color = BLACK
-
-      pivotal.prev.side.side.color = WHITE
-      pivotal.side.side.side.color = WHITE
-
+      pivotal.walkAround(3).color = BLACK
+      pivotal.walkInto(1).walkAround(1).color = YELLOW
+      pivotal.walkInto(1).walkAround(2).color = BLACK
+      pivotal.walkInto(2).color = YELLOW
+      pivotal.walkInto(2).walkAround(2).color = BLACK
+      pivotal.walkInto(2).walkAround(3).color = WHITE
+      pivotal.walkInto(3).color = WHITE
+      pivotal.walkInto(3).walkAround(3).color = YELLOW
       return 5
     case 5:
-      pivotal.side.color = GREEN
-      pivotal.side.side.color = GREEN
-      pivotal.prev.color = GREEN
-
-      pivotal.next.next.side.color = YELLOW
-      pivotal.next.next.side.side.color = YELLOW
-      pivotal.next.side.side.side.color = YELLOW
-
-      pivotal.next.color = BLACK
-      pivotal.next.next.color = BLACK
-      pivotal.side.side.side.color = BLACK
-
-      pivotal.next.side.color = WHITE
-      pivotal.prev.side.side.color = WHITE
-
+      pivotal.walkAround(1).color = BLACK
+      pivotal.walkAround(2).color = BLACK
+      pivotal.walkAround(3).color = GREEN
+      pivotal.walkInto(1).color = GREEN
+      pivotal.walkInto(1).walkAround(1).color = WHITE
+      pivotal.walkInto(1).walkAround(2).color = YELLOW
+      pivotal.walkInto(2).color = GREEN
+      pivotal.walkInto(2).walkAround(2).color = YELLOW
+      pivotal.walkInto(2).walkAround(3).color = WHITE
+      pivotal.walkInto(3).color = BLACK
+      pivotal.walkInto(3).walkAround(1).color = YELLOW
       return 5
     case 6:
-      pivotal.side.color = GREEN
-      pivotal.next.color = GREEN
-      pivotal.side.side.color = GREEN
-
-      pivotal.next.side.side.setRowColor(YELLOW)
-
       pivotal.color = BLACK
-      pivotal.prev.side.color = BLACK
-      pivotal.prev.prev.side.color = BLACK
-
-      pivotal.next.next.side.side.side.color = WHITE
-
+      pivotal.walkAround(1).color = GREEN
+      pivotal.walkInto(1).color = GREEN
+      pivotal.walkInto(1).walkAround(2).color = BLACK
+      pivotal.walkInto(1).walkAround(3).color = BLACK
+      pivotal.walkInto(2).color = GREEN
+      pivotal.walkInto(2).walkAround(1).setRowColor(YELLOW)
+      pivotal.walkInto(3).walkAround(2).color = WHITE
       return 5
     case 7:
       pivotal.color = BLACK
-      pivotal.next.color = YELLOW
-      pivotal.next.next.next.side.side.color = BLACK
-      pivotal.next.next.side.color = GREEN
-      pivotal.next.next.side.side.color = GREEN
-      pivotal.next.next.side.side.side.color = BLACK
-      pivotal.next.side.color = GREEN
-      pivotal.next.side.side.color = WHITE
-      pivotal.next.side.side.side.color = WHITE
-      pivotal.side.color = YELLOW
-      pivotal.side.side.side.color = YELLOW
+      pivotal.walkAround(1).color = YELLOW
+      pivotal.walkInto(1).color = YELLOW
+      pivotal.walkInto(1).walkAround(1).color = GREEN
+      pivotal.walkInto(1).walkAround(2).color = GREEN
+      pivotal.walkInto(2).walkAround(1).color = WHITE
+      pivotal.walkInto(2).walkAround(2).color = GREEN
+      pivotal.walkInto(2).walkAround(3).color = BLACK
+      pivotal.walkInto(3).color = YELLOW
+      pivotal.walkInto(3).walkAround(1).color = WHITE
+      pivotal.walkInto(3).walkAround(2).color = BLACK
       return 5
     case 8:
-      pivotal.next.next.color = YELLOW
-      pivotal.next.next.next.color = BLACK
-      pivotal.next.next.next.side.color = BLACK
-      pivotal.next.next.next.side.side.side.color = GREEN
-      pivotal.next.next.side.color = YELLOW
-      pivotal.next.next.side.side.color = WHITE
-      pivotal.next.next.side.side.side.color = GREEN
-      pivotal.next.side.side.color = GREEN
-      pivotal.side.color = BLACK
-      pivotal.side.side.color = YELLOW
+      pivotal.walkAround(2).color = YELLOW
+      pivotal.walkAround(3).color = BLACK
+      pivotal.walkInto(1).color = BLACK
+      pivotal.walkInto(1).walkAround(2).color = YELLOW
+      pivotal.walkInto(1).walkAround(3).color = BLACK
+      pivotal.walkInto(2).color = YELLOW
+      pivotal.walkInto(2).walkAround(1).color = GREEN
+      pivotal.walkInto(2).walkAround(2).color = WHITE
+      pivotal.walkInto(3).walkAround(2).color = GREEN
+      pivotal.walkInto(3).walkAround(3).color = GREEN
       return 6
     case 25:
-      pivotal.side.color = GREEN
-      pivotal.prev.side.color = GREEN
-      pivotal.next.next.side.side.color = GREEN
-
-      pivotal.side.side.color = YELLOW
-      pivotal.next.next.color = YELLOW
-      pivotal.prev.side.side.color = YELLOW
-
-      pivotal.next.next.side.color = BLACK
-      pivotal.side.side.side.color = BLACK
-      pivotal.next.side.side.side.color = BLACK
-
-      pivotal.next.color = RED
-      pivotal.prev.side.side.side.color = RED
-      pivotal.prev.side.side.side.side.color = RED
-
-      pivotal.next.next.side.side.side.color = WHITE
-
+      // Depth of 5.
+      pivotal.walkAround(1).color = RED
+      pivotal.walkAround(2).color = YELLOW
+      pivotal.walkInto(1).color = GREEN
+      pivotal.walkInto(1).walkAround(2).color = BLACK
+      pivotal.walkInto(1).walkAround(3).color = GREEN
+      pivotal.walkInto(2).color = YELLOW
+      pivotal.walkInto(2).walkAround(2).color = GREEN
+      pivotal.walkInto(2).walkAround(3).color = YELLOW
+      pivotal.walkInto(3).color = BLACK
+      pivotal.walkInto(3).walkAround(1).color = BLACK
+      pivotal.walkInto(3).walkAround(2).color = WHITE
+      pivotal.walkInto(3).walkAround(3).color = RED
+      pivotal.walkInto(4).walkAround(3).color = RED
       return 6
     case 26:
+      // Length of 5.
+      // Setup goal.
       pivotal.setRowColor(GREEN)
-      pivotal.next.side.setRowColor(YELLOW)
-      pivotal.next.next.side.side.setRowColor(BLACK)
-
-      pivotal.next.next.next.side.side.side.color = WHITE
-      pivotal.next.next.next.next.side.side.side.color = WHITE
-
-      pivotal.next.move()
-      pivotal.next.next.side.move()
-      pivotal.next.next.side.next.side.move()
-      pivotal.prev.side.move()
-      pivotal.prev.prev.side.side.move()
-
+      pivotal.walkInto(1).walkAround(1).setRowColor(YELLOW)
+      pivotal.walkInto(2).walkAround(2).setRowColor(BLACK)
+      pivotal.walkInto(3).walkAround(3).color = WHITE
+      pivotal.walkInto(3).walkAround(4).color = WHITE
+      // Perform moves.
+      pivotal.walkAround(1).move()
+      pivotal.walkInto(1).walkAround(2).move()
+      pivotal.walkInto(1).walkAround(4).move()
+      pivotal.walkInto(2).walkAround(3).move()
+      pivotal.walkInto(2).walkAround(3).move()
       return 5
     default:
       return setupRandomLevel(pivotal, level ** .75 )
