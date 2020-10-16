@@ -127,32 +127,22 @@ const setupLevel = (pivotal, level) => {
       pivotal.next.next.side.side.side.color = WHITE
 
       return 6
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-    case 11:
-    case 12:
-    case 13:
-    case 14:
-    case 15:
-    case 16:
-    case 17:
-    case 18:
-    case 19:
-    case 20:
-    case 21:
-    case 22:
-    case 23:
-    case 24:
-    default:
+    case 26:
       pivotal.setRowColor(GREEN)
       pivotal.next.side.setRowColor(YELLOW)
       pivotal.next.next.side.side.setRowColor(BLACK)
 
-      pivotal.side.side.side.color = WHITE
-      pivotal.prev.side.side.side.color = WHITE
+      pivotal.next.next.next.side.side.side.color = WHITE
+      pivotal.next.next.next.next.side.side.side.color = WHITE
+
+      pivotal.next.move()
+      pivotal.next.next.side.move()
+      pivotal.next.next.side.next.side.move()
+      pivotal.prev.side.move()
+      pivotal.prev.prev.side.side.move()
+
+      return 5
+    default:
 
       return 0
   }
