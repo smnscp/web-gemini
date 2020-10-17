@@ -164,7 +164,29 @@ class GeminiGame extends React.Component {
       ring: ring,
       level: level,
       moves: moves,
+      movedEdges: [],
     }
+  }
+
+  trackMove(edge) {
+    this.setState((state) => ({
+      moves: state.moves - 1,
+      movedEdges: state.movedEdges.concat(edge),
+    }))
+  }
+
+  undo() {
+    this.setState((state) => {
+      state.movedEdges.pop().move()
+      return {
+        moves: state.moves + 1,
+        movedEdges: state.movedEdges,
+      }
+    })
+  }
+
+  reset() {
+    this.setState(this.initGame(this.state.level))
   }
 
   levelUp() {
@@ -175,11 +197,13 @@ class GeminiGame extends React.Component {
   render() {
     return (
       <div className={classNames('gemini-game', `gemini-game-${this.state.ring.length}`)}>
-        <RingComponent ring={this.state.ring} onMove={() => this.setState((state) => ({moves: state.moves - 1}))} />
+        <RingComponent ring={this.state.ring} onMove={(edge) => this.trackMove(edge)} />
         <nav>
           <p>Level: {this.state.level}</p>
           <p>Moves: {this.state.moves}</p>
-          {this.state.ring.isSolved() && <button onClick={() => this.levelUp()}>level up!</button>}
+          {!!this.state.movedEdges.length && <button onClick={() => this.undo()}>Undo</button>}
+          {!!this.state.movedEdges.length && <button onClick={() => this.reset()}>Reset</button>}
+          {this.state.ring.isSolved() && <button onClick={() => this.levelUp()}>Level up!</button>}
         </nav>
       </div>
     )
@@ -213,7 +237,7 @@ class EdgeComponent extends React.Component {
     )
     const onClick = edge.isMovable() ? (() => {
       if (edge.move())
-        this.props.onMove()
+        this.props.onMove(edge)
     }) : undefined
 
     return <li className={classes}>
