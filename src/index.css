@@ -24,15 +24,26 @@ body {
 .gemini-game nav button {
   font-family: inherit;
   font-weight: bold;
-  font-style: italic;
-  font-size: 3vmin;
   text-shadow: none;
   box-shadow: none;
-  color: #ccc;
-  background: green;
+  color: inherit;
   border: .25vmin solid;
   border-radius: .5vmin;
   padding: 2vmin;
+  margin: .5vmin
+}
+.gemini-game nav button.primary {
+  color: #ccc;
+  background: green;
+}
+.gemini-game nav button.text {
+  font-style: italic;
+  font-size: 3vmin;
+}
+.gemini-game nav button.pict {
+  font-size: 6vmin;
+  line-height: .6;
+  padding: 1vmin;
 }
 .gemini-game .ring {
   position: absolute;
@@ -128,7 +139,6 @@ body {
 }
 .gemini-game-5 .ring > .edges {
   width: 72.5%;
-  height: 100%;
 }
 .gemini-game-5 .ring > .edges > .edge-2 {
   transform: rotate(72deg);

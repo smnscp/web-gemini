@@ -201,9 +201,13 @@ class GeminiGame extends React.Component {
         <nav>
           <p>Level: {this.state.level}</p>
           <p>Moves: {this.state.moves}</p>
-          {!!this.state.movedEdges.length && <button onClick={() => this.undo()}>Undo</button>}
-          {!!this.state.movedEdges.length && <button onClick={() => this.reset()}>Reset</button>}
-          {this.state.ring.isSolved() && <button onClick={() => this.levelUp()}>Level up!</button>}
+          {this.state.ring.isSolved()
+            ? <button className='primary text' onClick={() => this.levelUp()}>Level up!</button>
+            : !!this.state.movedEdges.length && <>
+                <button className='pict' onClick={() => this.undo()} title='Undo'>⤺</button>
+                <button className='pict' onClick={() => this.reset()} title='Reset'>↺</button>
+              </>
+          }
         </nav>
       </div>
     )
