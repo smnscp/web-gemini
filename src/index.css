@@ -32,6 +32,10 @@ body {
   padding: 2vmin;
   margin: .5vmin
 }
+.gemini-game nav button[disabled] {
+  color: #666;
+  background: #999;
+}
 .gemini-game nav button.primary {
   color: #ccc;
   background: green;
@@ -43,7 +47,7 @@ body {
 .gemini-game nav button.pict {
   font-size: 6vmin;
   line-height: .6;
-  padding: 1vmin;
+  padding: .5vmin 1vmin 1.5vmin;
 }
 .gemini-game .ring {
   position: absolute;

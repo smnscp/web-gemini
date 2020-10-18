@@ -166,6 +166,7 @@ class GeminiGame extends React.Component {
       level: level,
       moves: moves,
       movedEdges: [],
+      undoneEdges: [],
     }
   }
 
@@ -173,14 +174,33 @@ class GeminiGame extends React.Component {
     this.setState((state) => ({
       moves: state.moves - 1,
       movedEdges: state.movedEdges.concat(edge),
+      undoneEdges: [],
     }))
   }
 
   undo() {
     this.setState((state) => {
-      state.movedEdges.pop().move()
+      if (!state.movedEdges.length) return
+      const edge = state.movedEdges.pop()
+      state.undoneEdges.push(edge)
+      edge.move()
       return {
         moves: state.moves + 1,
+        movedEdges: state.movedEdges,
+        undoneEdges: state.undoneEdges,
+      }
+    })
+  }
+
+  redo() {
+    this.setState((state) => {
+      if (!state.undoneEdges.length) return
+      const edge = state.undoneEdges.pop()
+      state.movedEdges.push(edge)
+      edge.move()
+      return {
+        moves: state.moves - 1,
+        undoneEdges: state.undoneEdges,
         movedEdges: state.movedEdges,
       }
     })
@@ -198,8 +218,14 @@ class GeminiGame extends React.Component {
 
   render() {
     const classes = classNames('gemini-game', `gemini-game-${this.state.ring.length}`)
-    const keyMap = { UNDO: ['ctrl+z', 'cmd+z'] }
-    const handlers = { UNDO: () => this.undo() }
+    const keyMap = {
+      UNDO: ['ctrl+z', 'cmd+z'],
+      REDO: ['shift+ctrl+z', 'shift+cmd+z'],
+    }
+    const handlers = {
+      UNDO: () => this.undo(),
+      REDO: () => this.redo(),
+    }
     return (
       <div className={classes}>
         <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
@@ -209,9 +235,10 @@ class GeminiGame extends React.Component {
           <p>Moves: {this.state.moves}</p>
           {this.state.ring.isSolved()
             ? <button className='primary text' onClick={() => this.levelUp()}>Level up!</button>
-            : !!this.state.movedEdges.length && <>
-                <button className='pict' onClick={() => this.undo()} title='Undo'>⤺</button>
-                <button className='pict' onClick={() => this.reset()} title='Reset'>↺</button>
+            : <>
+                <button disabled={!this.state.movedEdges.length} className='pict' onClick={() => this.undo()} title='Undo'>↶</button>
+                <button disabled={!this.state.undoneEdges.length} className='pict' onClick={() => this.redo()} title='Redo'>↷</button>
+                <button disabled={!this.state.movedEdges.length} className='pict' onClick={() => this.reset()} title='Reset'>↺</button>
               </>
           }
         </nav>
