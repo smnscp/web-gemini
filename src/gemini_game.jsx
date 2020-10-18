@@ -1,5 +1,6 @@
 import React from "react"
 import classNames from "classnames"
+import { GlobalHotKeys } from "react-hotkeys"
 import setupLevel from "./levels"
 
 class Edge {
@@ -196,8 +197,12 @@ class GeminiGame extends React.Component {
   }
 
   render() {
+    const classes = classNames('gemini-game', `gemini-game-${this.state.ring.length}`)
+    const keyMap = { UNDO: ['ctrl+z', 'cmd+z'] }
+    const handlers = { UNDO: () => this.undo() }
     return (
-      <div className={classNames('gemini-game', `gemini-game-${this.state.ring.length}`)}>
+      <div className={classes}>
+        <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
         <RingComponent ring={this.state.ring} onMove={(edge) => this.trackMove(edge)} />
         <nav>
           <p>Level: {this.state.level}</p>
