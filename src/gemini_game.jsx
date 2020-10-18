@@ -192,6 +192,7 @@ class GeminiGame extends React.Component {
   levelUp() {
     const nextLevel = this.state.level + 1
     this.setState(this.initGame(nextLevel))
+    window.location.hash = `#level=${nextLevel}`
   }
 
   render() {
