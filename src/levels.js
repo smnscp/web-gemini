@@ -337,9 +337,9 @@ const setupLevel = (pivotal, level) => {
       // Perform moves.
       pivotal.walkAround(1).move()
       pivotal.walkInto(1).walkAround(2).move()
-      pivotal.walkInto(1).walkAround(4).move()
+      pivotal.walkInto(1).walkAround(3).move()
       pivotal.walkInto(2).walkAround(3).move()
-      pivotal.walkInto(2).walkAround(3).move()
+      pivotal.walkInto(2).walkAround(4).move()
       return 5
     default:
       return setupRandomLevel(pivotal, level ** .75 )
