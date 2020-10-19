@@ -173,36 +173,35 @@ class GeminiGame extends React.Component {
     }))
   }
 
-  undo() {
+  travelTime(steps) {
     this.setState((state) => {
-      if (!state.movedEdges.length) return
-      const edge = state.movedEdges.pop()
-      state.undoneEdges.push(edge)
-      edge.move()
+      const source = (steps > 0) ? state.undoneEdges : state.movedEdges
+      const target = (steps < 0) ? state.undoneEdges : state.movedEdges
+      let count = Math.min(source.length, Math.round(Math.abs(steps)))
+      const moves = state.moves - Math.sign(steps) * count
+      while (count--) {
+        const edge = source.pop()
+        target.push(edge)
+        edge.move()
+      }
       return {
-        moves: state.moves + 1,
-        movedEdges: state.movedEdges,
-        undoneEdges: state.undoneEdges,
+        moves: moves,
+        movedEdges: (steps > 0) ? target : source,
+        undoneEdges: (steps < 0) ? target : source,
       }
     })
+  }
+
+  undo() {
+    this.travelTime(-1)
   }
 
   redo() {
-    this.setState((state) => {
-      if (!state.undoneEdges.length) return
-      const edge = state.undoneEdges.pop()
-      state.movedEdges.push(edge)
-      edge.move()
-      return {
-        moves: state.moves - 1,
-        undoneEdges: state.undoneEdges,
-        movedEdges: state.movedEdges,
-      }
-    })
+    this.travelTime(1)
   }
 
   reset() {
-    this.setState(this.initGame(this.state.level))
+    this.travelTime(Number.MIN_SAFE_INTEGER)
   }
 
   levelUp() {
