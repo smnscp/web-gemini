@@ -4,400 +4,434 @@ const YELLOW = 2
 const BLACK = 3
 const RED = 4
 
+const rndInt = cap => Math.floor(Math.random() * cap)
+
+class Setup {
+  constructor(length, depth, moveCount) {
+    this.length = length
+    this.depth = depth
+    this.moveCount = Math.floor(moveCount)
+    this.marbles = []
+    this.moves = []
+    this.doShuffle = false
+  }
+
+  addMarble(into, around, color) {
+    this.marbles.push({into, around, color})
+  }
+
+  addMarbleRow(into, around, color) {
+    this.marbles.push({into, around, color})
+    this.marbles.push({into: into + 1, around, color})
+    this.marbles.push({into, around: around + 1, color})
+  }
+
+  addMove(into, around) {
+    this.moves.push({into, around})
+  }
+
+  setRandomGoal() {
+    let into = 0
+    let around = rndInt(this.length)
+    let colors = [...Array(this.depth).keys()].slice(1)
+    while (colors.length) {
+      around += rndInt(this.length - 2)
+      let colorIndex = rndInt(colors.length)
+      this.addMarbleRow(into, around, colors[colorIndex])
+      colors.splice(colorIndex, 1)
+      ++into
+      ++around
+    }
+  }
+
+  setRandomPlaceholders(min = 1, max = 2) {
+    let tries = min + max
+    let placed = 0
+
+    while (placed < min || tries > 0 && placed < max) {
+      const into = rndInt(this.depth)
+      const around = rndInt(this.length)
+
+      if (!this.marbles.some(m => m.into === into && m.around === around)) {
+        this.addMarble(into, around, WHITE)
+        ++placed
+      }
+      --tries
+    }
+  }
+}
+
 /**
- * Setup a given level.
- * @param pivotal The edge from where we start navigating.
+ * Make a Setup for a given level.
  * @param level The level’s number.
- * @return Number of moves to solve this level.
+ * @return The Setup object.
  */
-const setupLevel = (pivotal, level) => {
+const makeSetup = (level) => {
+  let setup
+
   switch (level) {
     case 1:
-      pivotal.color = GREEN
-      pivotal.walkAround(2).color = YELLOW
-      pivotal.walkInto(1).walkAround(1).color = YELLOW
-      pivotal.walkInto(1).walkAround(2).color = BLACK
-      pivotal.walkInto(1).walkAround(3).color = GREEN
-      pivotal.walkInto(2).walkAround(1).color = BLACK
-      pivotal.walkInto(2).walkAround(2).color = GREEN
-      pivotal.walkInto(2).walkAround(3).color = YELLOW
-      pivotal.walkInto(3).walkAround(1).color = BLACK
-      pivotal.walkInto(3).walkAround(2).color = WHITE
-      return 3
+      setup = new Setup(4, 4, 3)
+      setup.addMarble(0, 0, GREEN)
+      setup.addMarble(0, 2, YELLOW)
+      setup.addMarble(1, 1, YELLOW)
+      setup.addMarble(1, 2, BLACK)
+      setup.addMarble(1, 3, GREEN)
+      setup.addMarble(2, 1, BLACK)
+      setup.addMarble(2, 2, GREEN)
+      setup.addMarble(2, 3, YELLOW)
+      setup.addMarble(3, 1, BLACK)
+      setup.addMarble(3, 2, WHITE)
+      return setup
     case 2:
-      pivotal.walkAround(1).color = GREEN
-      pivotal.walkAround(3).color = YELLOW
-      pivotal.walkInto(1).walkAround(1).color = BLACK
-      pivotal.walkInto(1).walkAround(2).color = YELLOW
-      pivotal.walkInto(1).walkAround(3).color = GREEN
-      pivotal.walkInto(2).color = GREEN
-      pivotal.walkInto(2).walkAround(2).color = YELLOW
-      pivotal.walkInto(2).walkAround(3).color = WHITE
-      pivotal.walkInto(3).color = BLACK
-      pivotal.walkInto(3).walkAround(3).color = BLACK
-      return 4
+      setup = new Setup(4, 4, 4)
+      setup.addMarble(0, 1, GREEN)
+      setup.addMarble(0, 3, YELLOW)
+      setup.addMarble(1, 1, BLACK)
+      setup.addMarble(1, 2, YELLOW)
+      setup.addMarble(1, 3, GREEN)
+      setup.addMarble(2, 0, GREEN)
+      setup.addMarble(2, 2, YELLOW)
+      setup.addMarble(2, 3, WHITE)
+      setup.addMarble(3, 0, BLACK)
+      setup.addMarble(3, 3, BLACK)
+      return setup
     case 3:
-      pivotal.walkAround(1).color = BLACK
-      pivotal.walkAround(2).color = WHITE
-      pivotal.walkAround(3).color = GREEN
-      pivotal.walkInto(1).color = WHITE
-      pivotal.walkInto(1).walkAround(1).color = YELLOW
-      pivotal.walkInto(1).walkAround(2).color = GREEN
-      pivotal.walkInto(2).color = BLACK
-      pivotal.walkInto(2).walkAround(1).color = YELLOW
-      pivotal.walkInto(2).walkAround(3).color = BLACK
-      pivotal.walkInto(3).color = YELLOW
-      pivotal.walkInto(3).walkAround(2).color = GREEN
-      return 4
+      setup = new Setup(4, 4, 4)
+      setup.addMarble(0, 1, BLACK)
+      setup.addMarble(0, 2, WHITE)
+      setup.addMarble(0, 3, GREEN)
+      setup.addMarble(1, 0, WHITE)
+      setup.addMarble(1, 1, YELLOW)
+      setup.addMarble(1, 2, GREEN)
+      setup.addMarble(2, 0, BLACK)
+      setup.addMarble(2, 1, YELLOW)
+      setup.addMarble(2, 3, BLACK)
+      setup.addMarble(3, 0, YELLOW)
+      setup.addMarble(3, 2, GREEN)
+      return setup
     case 4:
-      pivotal.setRowColor(GREEN)
-      pivotal.walkAround(3).color = BLACK
-      pivotal.walkInto(1).walkAround(1).color = YELLOW
-      pivotal.walkInto(1).walkAround(2).color = BLACK
-      pivotal.walkInto(2).color = YELLOW
-      pivotal.walkInto(2).walkAround(2).color = BLACK
-      pivotal.walkInto(2).walkAround(3).color = WHITE
-      pivotal.walkInto(3).color = WHITE
-      pivotal.walkInto(3).walkAround(3).color = YELLOW
-      return 5
+      setup = new Setup(4, 4, 5)
+      setup.addMarbleRow(0, 0, GREEN)
+      setup.addMarble(0, 3, BLACK)
+      setup.addMarble(1, 1, YELLOW)
+      setup.addMarble(1, 2, BLACK)
+      setup.addMarble(2, 0, YELLOW)
+      setup.addMarble(2, 2, BLACK)
+      setup.addMarble(2, 3, WHITE)
+      setup.addMarble(3, 0, WHITE)
+      setup.addMarble(3, 3, YELLOW)
+      return setup
     case 5:
-      pivotal.walkAround(1).color = BLACK
-      pivotal.walkAround(2).color = BLACK
-      pivotal.walkAround(3).color = GREEN
-      pivotal.walkInto(1).color = GREEN
-      pivotal.walkInto(1).walkAround(1).color = WHITE
-      pivotal.walkInto(1).walkAround(2).color = YELLOW
-      pivotal.walkInto(2).color = GREEN
-      pivotal.walkInto(2).walkAround(2).color = YELLOW
-      pivotal.walkInto(2).walkAround(3).color = WHITE
-      pivotal.walkInto(3).color = BLACK
-      pivotal.walkInto(3).walkAround(1).color = YELLOW
-      return 5
+      setup = new Setup(4, 4, 5)
+      setup.addMarble(0, 1, BLACK)
+      setup.addMarble(0, 2, BLACK)
+      setup.addMarble(0, 3, GREEN)
+      setup.addMarble(1, 0, GREEN)
+      setup.addMarble(1, 1, WHITE)
+      setup.addMarble(1, 2, YELLOW)
+      setup.addMarble(2, 0, GREEN)
+      setup.addMarble(2, 2, YELLOW)
+      setup.addMarble(2, 3, WHITE)
+      setup.addMarble(3, 0, BLACK)
+      setup.addMarble(3, 1, YELLOW)
+      return setup
     case 6:
-      pivotal.color = BLACK
-      pivotal.walkAround(1).color = GREEN
-      pivotal.walkInto(1).color = GREEN
-      pivotal.walkInto(1).walkAround(2).color = BLACK
-      pivotal.walkInto(1).walkAround(3).color = BLACK
-      pivotal.walkInto(2).color = GREEN
-      pivotal.walkInto(2).walkAround(1).setRowColor(YELLOW)
-      pivotal.walkInto(3).walkAround(2).color = WHITE
-      return 5
+      setup = new Setup(4, 4, 5)
+      setup.addMarble(0, 0, BLACK)
+      setup.addMarble(0, 1, GREEN)
+      setup.addMarble(1, 0, GREEN)
+      setup.addMarble(1, 2, BLACK)
+      setup.addMarble(1, 3, BLACK)
+      setup.addMarble(2, 0, GREEN)
+      setup.addMarbleRow(2, 1, YELLOW)
+      setup.addMarble(3, 2, WHITE)
+      return setup
     case 7:
-      pivotal.color = BLACK
-      pivotal.walkAround(1).color = YELLOW
-      pivotal.walkInto(1).color = YELLOW
-      pivotal.walkInto(1).walkAround(1).color = GREEN
-      pivotal.walkInto(1).walkAround(2).color = GREEN
-      pivotal.walkInto(2).walkAround(1).color = WHITE
-      pivotal.walkInto(2).walkAround(2).color = GREEN
-      pivotal.walkInto(2).walkAround(3).color = BLACK
-      pivotal.walkInto(3).color = YELLOW
-      pivotal.walkInto(3).walkAround(1).color = WHITE
-      pivotal.walkInto(3).walkAround(2).color = BLACK
-      return 5
+      setup = new Setup(4, 4, 5)
+      setup.addMarble(0, 0, BLACK)
+      setup.addMarble(0, 1, YELLOW)
+      setup.addMarble(1, 0, YELLOW)
+      setup.addMarble(1, 1, GREEN)
+      setup.addMarble(1, 2, GREEN)
+      setup.addMarble(2, 1, WHITE)
+      setup.addMarble(2, 2, GREEN)
+      setup.addMarble(2, 3, BLACK)
+      setup.addMarble(3, 0, YELLOW)
+      setup.addMarble(3, 1, WHITE)
+      setup.addMarble(3, 2, BLACK)
+      return setup
     case 8:
-      pivotal.walkAround(2).color = YELLOW
-      pivotal.walkAround(3).color = BLACK
-      pivotal.walkInto(1).color = BLACK
-      pivotal.walkInto(1).walkAround(2).color = YELLOW
-      pivotal.walkInto(1).walkAround(3).color = BLACK
-      pivotal.walkInto(2).color = YELLOW
-      pivotal.walkInto(2).walkAround(1).color = GREEN
-      pivotal.walkInto(2).walkAround(2).color = WHITE
-      pivotal.walkInto(3).walkAround(2).color = GREEN
-      pivotal.walkInto(3).walkAround(3).color = GREEN
-      return 6
+      setup = new Setup(4, 4, 6)
+      setup.addMarble(0, 2, YELLOW)
+      setup.addMarble(0, 3, BLACK)
+      setup.addMarble(1, 0, BLACK)
+      setup.addMarble(1, 2, YELLOW)
+      setup.addMarble(1, 3, BLACK)
+      setup.addMarble(2, 0, YELLOW)
+      setup.addMarble(2, 1, GREEN)
+      setup.addMarble(2, 2, WHITE)
+      setup.addMarble(3, 2, GREEN)
+      setup.addMarble(3, 3, GREEN)
+      return setup
     case 9:
-      pivotal.walkAround(1).color = YELLOW
-      pivotal.walkAround(2).color = GREEN
-      pivotal.walkAround(3).color = BLACK
-      pivotal.walkInto(1).walkAround(1).color = YELLOW
-      pivotal.walkInto(1).walkAround(2).color = BLACK
-      pivotal.walkInto(1).walkAround(3).color = BLACK
-      pivotal.walkInto(2).color = YELLOW
-      pivotal.walkInto(2).walkAround(1).color = WHITE
-      pivotal.walkInto(2).walkAround(3).color = WHITE
-      pivotal.walkInto(3).walkAround(1).color = GREEN
-      pivotal.walkInto(3).walkAround(2).color = GREEN
-      return 6
+      setup = new Setup(4, 4, 6)
+      setup.addMarble(0, 1, YELLOW)
+      setup.addMarble(0, 2, GREEN)
+      setup.addMarble(0, 3, BLACK)
+      setup.addMarble(1, 1, YELLOW)
+      setup.addMarble(1, 2, BLACK)
+      setup.addMarble(1, 3, BLACK)
+      setup.addMarble(2, 0, YELLOW)
+      setup.addMarble(2, 1, WHITE)
+      setup.addMarble(2, 3, WHITE)
+      setup.addMarble(3, 1, GREEN)
+      setup.addMarble(3, 2, GREEN)
+      return setup
     case 10:
-      pivotal.color = BLACK
-      pivotal.walkAround(1).color = YELLOW
-      pivotal.walkInto(1).color = YELLOW
-      pivotal.walkInto(1).walkAround(1).color = WHITE
-      pivotal.walkInto(1).walkAround(3).color = GREEN
-      pivotal.walkInto(2).color = GREEN
-      pivotal.walkInto(2).walkAround(1).color = GREEN
-      pivotal.walkInto(2).walkAround(3).color = YELLOW
-      pivotal.walkInto(3).color = WHITE
-      pivotal.walkInto(3).walkAround(1).color = BLACK
-      pivotal.walkInto(3).walkAround(2).color = BLACK
-      return 6
+      setup = new Setup(4, 4, 6)
+      setup.addMarble(0, 0, BLACK)
+      setup.addMarble(0, 1, YELLOW)
+      setup.addMarble(1, 0, YELLOW)
+      setup.addMarble(1, 1, WHITE)
+      setup.addMarble(1, 3, GREEN)
+      setup.addMarble(2, 0, GREEN)
+      setup.addMarble(2, 1, GREEN)
+      setup.addMarble(2, 3, YELLOW)
+      setup.addMarble(3, 0, WHITE)
+      setup.addMarble(3, 1, BLACK)
+      setup.addMarble(3, 2, BLACK)
+      return setup
     case 11:
-      pivotal.color = BLACK
-      pivotal.walkAround(1).color = GREEN
-      pivotal.walkAround(2).color = YELLOW
-      pivotal.walkInto(1).walkAround(1).color = YELLOW
-      pivotal.walkInto(1).walkAround(2).color = YELLOW
-      pivotal.walkInto(1).walkAround(3).color = BLACK
-      pivotal.walkInto(2).color = GREEN
-      pivotal.walkInto(2).walkAround(1).color = WHITE
-      pivotal.walkInto(2).walkAround(2).color = BLACK
-      pivotal.walkInto(2).walkAround(3).color = WHITE
-      pivotal.walkInto(3).walkAround(3).color = GREEN
-      return 6
+      setup = new Setup(4, 4, 6)
+      setup.addMarble(0, 0, BLACK)
+      setup.addMarble(0, 1, GREEN)
+      setup.addMarble(0, 2, YELLOW)
+      setup.addMarble(1, 1, YELLOW)
+      setup.addMarble(1, 2, YELLOW)
+      setup.addMarble(1, 3, BLACK)
+      setup.addMarble(2, 0, GREEN)
+      setup.addMarble(2, 1, WHITE)
+      setup.addMarble(2, 2, BLACK)
+      setup.addMarble(2, 3, WHITE)
+      setup.addMarble(3, 3, GREEN)
+      return setup
     case 12:
-      pivotal.walkAround(1).color = GREEN
-      pivotal.walkAround(2).color = YELLOW
-      pivotal.walkInto(1).color = GREEN
-      pivotal.walkInto(1).walkAround(1).color = BLACK
-      pivotal.walkInto(1).walkAround(3).color = WHITE
-      pivotal.walkInto(2).walkAround(1).color = BLACK
-      pivotal.walkInto(2).walkAround(2).color = YELLOW
-      pivotal.walkInto(2).walkAround(3).color = YELLOW
-      pivotal.walkInto(3).color = GREEN
-      pivotal.walkInto(3).walkAround(1).color = BLACK
-      pivotal.walkInto(3).walkAround(2).color = WHITE
-      return 7
+      setup = new Setup(4, 4, 7)
+      setup.addMarble(0, 1, GREEN)
+      setup.addMarble(0, 2, YELLOW)
+      setup.addMarble(1, 0, GREEN)
+      setup.addMarble(1, 1, BLACK)
+      setup.addMarble(1, 3, WHITE)
+      setup.addMarble(2, 1, BLACK)
+      setup.addMarble(2, 2, YELLOW)
+      setup.addMarble(2, 3, YELLOW)
+      setup.addMarble(3, 0, GREEN)
+      setup.addMarble(3, 1, BLACK)
+      setup.addMarble(3, 2, WHITE)
+      return setup
     case 13:
-      pivotal.color = BLACK
-      pivotal.walkAround(2).color = GREEN
-      pivotal.walkAround(3).color = YELLOW
-      pivotal.walkInto(1).walkAround(1).color = WHITE
-      pivotal.walkInto(1).walkAround(2).color = GREEN
-      pivotal.walkInto(1).walkAround(3).color = BLACK
-      pivotal.walkInto(2).color = BLACK
-      pivotal.walkInto(2).walkAround(1).color = GREEN
-      pivotal.walkInto(2).walkAround(2).color = WHITE
-      pivotal.walkInto(3).walkAround(2).color = YELLOW
-      pivotal.walkInto(3).walkAround(3).color = YELLOW
-      return 7
+      setup = new Setup(4, 4, 7)
+      setup.addMarble(0, 0, BLACK)
+      setup.addMarble(0, 2, GREEN)
+      setup.addMarble(0, 3, YELLOW)
+      setup.addMarble(1, 1, WHITE)
+      setup.addMarble(1, 2, GREEN)
+      setup.addMarble(1, 3, BLACK)
+      setup.addMarble(2, 0, BLACK)
+      setup.addMarble(2, 1, GREEN)
+      setup.addMarble(2, 2, WHITE)
+      setup.addMarble(3, 2, YELLOW)
+      setup.addMarble(3, 3, YELLOW)
+      return setup
     case 14:
-      pivotal.color = YELLOW
-      pivotal.walkAround(1).color = BLACK
-      pivotal.walkInto(1).color = YELLOW
-      pivotal.walkInto(1).walkAround(1).color = WHITE
-      pivotal.walkInto(1).walkAround(2).color = BLACK
-      pivotal.walkInto(2).color = YELLOW
-      pivotal.walkInto(2).walkAround(1).color = GREEN
-      pivotal.walkInto(2).walkAround(3).color = GREEN
-      pivotal.walkInto(3).color = BLACK
-      pivotal.walkInto(3).walkAround(1).color = GREEN
-      return 7
+      setup = new Setup(4, 4, 7)
+      setup.addMarble(0, 0, YELLOW)
+      setup.addMarble(0, 1, BLACK)
+      setup.addMarble(1, 0, YELLOW)
+      setup.addMarble(1, 1, WHITE)
+      setup.addMarble(1, 2, BLACK)
+      setup.addMarble(2, 0, YELLOW)
+      setup.addMarble(2, 1, GREEN)
+      setup.addMarble(2, 3, GREEN)
+      setup.addMarble(3, 0, BLACK)
+      setup.addMarble(3, 1, GREEN)
+      return setup
     case 15:
-      pivotal.walkAround(1).color = GREEN
-      pivotal.walkAround(2).color = BLACK
-      pivotal.walkAround(3).color = YELLOW
-      pivotal.walkInto(1).color = YELLOW
-      pivotal.walkInto(1).walkAround(2).color = BLACK
-      pivotal.walkInto(1).walkAround(3).color = WHITE
-      pivotal.walkInto(2).walkAround(1).color = WHITE
-      pivotal.walkInto(2).walkAround(2).color = BLACK
-      pivotal.walkInto(2).walkAround(3).color = GREEN
-      pivotal.walkInto(3).walkAround(2).color = YELLOW
-      pivotal.walkInto(3).walkAround(3).color = GREEN
-      return 7
+      setup = new Setup(4, 4, 7)
+      setup.addMarble(0, 1, GREEN)
+      setup.addMarble(0, 2, BLACK)
+      setup.addMarble(0, 3, YELLOW)
+      setup.addMarble(1, 0, YELLOW)
+      setup.addMarble(1, 2, BLACK)
+      setup.addMarble(1, 3, WHITE)
+      setup.addMarble(2, 1, WHITE)
+      setup.addMarble(2, 2, BLACK)
+      setup.addMarble(2, 3, GREEN)
+      setup.addMarble(3, 2, YELLOW)
+      setup.addMarble(3, 3, GREEN)
+      return setup
     case 16:
-      pivotal.color = WHITE
-      pivotal.walkAround(2).color = BLACK
-      pivotal.walkInto(1).walkAround(1).color = BLACK
-      pivotal.walkInto(1).walkAround(3).setRowColor(GREEN)
-      pivotal.walkInto(2).walkAround(1).setRowColor(YELLOW)
-      pivotal.walkInto(3).color = WHITE
-      pivotal.walkInto(3).walkAround(3).color = BLACK
-      return 8
+      setup = new Setup(4, 4, 8)
+      setup.addMarble(0, 0, WHITE)
+      setup.addMarble(0, 2, BLACK)
+      setup.addMarble(1, 1, BLACK)
+      setup.addMarbleRow(1, 3, GREEN)
+      setup.addMarbleRow(2, 1, YELLOW)
+      setup.addMarble(3, 0, WHITE)
+      setup.addMarble(3, 3, BLACK)
+      return setup
     case 17:
-      pivotal.color = GREEN
-      pivotal.walkAround(2).color = YELLOW
-      pivotal.walkAround(3).color = BLACK
-      pivotal.walkInto(1).color = WHITE
-      pivotal.walkInto(1).walkAround(2).color = YELLOW
-      pivotal.walkInto(1).walkAround(3).color = BLACK
-      pivotal.walkInto(2).color = GREEN
-      pivotal.walkInto(2).walkAround(1).color = GREEN
-      pivotal.walkInto(2).walkAround(2).color = WHITE
-      pivotal.walkInto(3).color = YELLOW
-      pivotal.walkInto(3).walkAround(2).color = BLACK
-      return 8
+      setup = new Setup(4, 4, 8)
+      setup.addMarble(0, 0, GREEN)
+      setup.addMarble(0, 2, YELLOW)
+      setup.addMarble(0, 3, BLACK)
+      setup.addMarble(1, 0, WHITE)
+      setup.addMarble(1, 2, YELLOW)
+      setup.addMarble(1, 3, BLACK)
+      setup.addMarble(2, 0, GREEN)
+      setup.addMarble(2, 1, GREEN)
+      setup.addMarble(2, 2, WHITE)
+      setup.addMarble(3, 0, YELLOW)
+      setup.addMarble(3, 2, BLACK)
+      return setup
     case 18:
-      pivotal.walkAround(1).color = GREEN
-      pivotal.walkAround(2).color = BLACK
-      pivotal.walkInto(1).walkAround(1).color = GREEN
-      pivotal.walkInto(1).walkAround(2).color = YELLOW
-      pivotal.walkInto(1).walkAround(3).color = WHITE
-      pivotal.walkInto(2).color = YELLOW
-      pivotal.walkInto(2).walkAround(1).color = BLACK
-      pivotal.walkInto(2).walkAround(2).color = YELLOW
-      pivotal.walkInto(3).color = WHITE
-      pivotal.walkInto(3).walkAround(1).color = BLACK
-      pivotal.walkInto(3).walkAround(2).color = GREEN
-      return 8
+      setup = new Setup(4, 4, 8)
+      setup.addMarble(0, 1, GREEN)
+      setup.addMarble(0, 2, BLACK)
+      setup.addMarble(1, 1, GREEN)
+      setup.addMarble(1, 2, YELLOW)
+      setup.addMarble(1, 3, WHITE)
+      setup.addMarble(2, 0, YELLOW)
+      setup.addMarble(2, 1, BLACK)
+      setup.addMarble(2, 2, YELLOW)
+      setup.addMarble(3, 0, WHITE)
+      setup.addMarble(3, 1, BLACK)
+      setup.addMarble(3, 2, GREEN)
+      return setup
     case 19:
-      pivotal.color = GREEN
-      pivotal.walkAround(3).color = WHITE
-      pivotal.walkInto(1).color = BLACK
-      pivotal.walkInto(1).walkAround(1).color = YELLOW
-      pivotal.walkInto(1).walkAround(2).color = YELLOW
-      pivotal.walkInto(2).color = GREEN
-      pivotal.walkInto(2).walkAround(2).color = GREEN
-      pivotal.walkInto(2).walkAround(3).color = YELLOW
-      pivotal.walkInto(3).color = BLACK
-      pivotal.walkInto(3).walkAround(1).color = BLACK
-      pivotal.walkInto(3).walkAround(2).color = WHITE
-      return 9
+      setup = new Setup(4, 4, 9)
+      setup.addMarble(0, 0, GREEN)
+      setup.addMarble(0, 3, WHITE)
+      setup.addMarble(1, 0, BLACK)
+      setup.addMarble(1, 1, YELLOW)
+      setup.addMarble(1, 2, YELLOW)
+      setup.addMarble(2, 0, GREEN)
+      setup.addMarble(2, 2, GREEN)
+      setup.addMarble(2, 3, YELLOW)
+      setup.addMarble(3, 0, BLACK)
+      setup.addMarble(3, 1, BLACK)
+      setup.addMarble(3, 2, WHITE)
+      return setup
     case 20:
-      pivotal.color = GREEN
-      pivotal.walkAround(2).color = WHITE
-      pivotal.walkAround(3).color = BLACK
-      pivotal.walkInto(1).color = GREEN
-      pivotal.walkInto(1).walkAround(1).color = YELLOW
-      pivotal.walkInto(1).walkAround(2).color = YELLOW
-      pivotal.walkInto(2).color = GREEN
-      pivotal.walkInto(2).walkAround(2).color = BLACK
-      pivotal.walkInto(2).walkAround(3).color = WHITE
-      pivotal.walkInto(3).color = BLACK
-      pivotal.walkInto(3).walkAround(1).color = YELLOW
-      return 9
+      setup = new Setup(4, 4, 9)
+      setup.addMarble(0, 0, GREEN)
+      setup.addMarble(0, 2, WHITE)
+      setup.addMarble(0, 3, BLACK)
+      setup.addMarble(1, 0, GREEN)
+      setup.addMarble(1, 1, YELLOW)
+      setup.addMarble(1, 2, YELLOW)
+      setup.addMarble(2, 0, GREEN)
+      setup.addMarble(2, 2, BLACK)
+      setup.addMarble(2, 3, WHITE)
+      setup.addMarble(3, 0, BLACK)
+      setup.addMarble(3, 1, YELLOW)
+      return setup
     case 21:
-      pivotal.color = YELLOW
-      pivotal.walkAround(1).color = BLACK
-      pivotal.walkInto(1).color = BLACK
-      pivotal.walkInto(1).walkAround(2).color = WHITE
-      pivotal.walkInto(1).walkAround(3).color = YELLOW
-      pivotal.walkInto(2).walkAround(1).setRowColor(GREEN)
-      pivotal.walkInto(2).walkAround(3).color = YELLOW
-      pivotal.walkInto(3).color = BLACK
-      pivotal.walkInto(3).walkAround(2).color = WHITE
-      return 10
+      setup = new Setup(4, 4, 10)
+      setup.addMarble(0, 0, YELLOW)
+      setup.addMarble(0, 1, BLACK)
+      setup.addMarble(1, 0, BLACK)
+      setup.addMarble(1, 2, WHITE)
+      setup.addMarble(1, 3, YELLOW)
+      setup.addMarbleRow(2, 1, GREEN)
+      setup.addMarble(2, 3, YELLOW)
+      setup.addMarble(3, 0, BLACK)
+      setup.addMarble(3, 2, WHITE)
+      return setup
     case 22:
-      pivotal.walkAround(2).color = WHITE
-      pivotal.walkAround(3).color = YELLOW
-      pivotal.walkInto(1).color = BLACK
-      pivotal.walkInto(1).walkAround(2).color = YELLOW
-      pivotal.walkInto(1).walkAround(3).color = GREEN
-      pivotal.walkInto(2).color = BLACK
-      pivotal.walkInto(2).walkAround(1).color = BLACK
-      pivotal.walkInto(2).walkAround(2).color = GREEN
-      pivotal.walkInto(3).color = WHITE
-      pivotal.walkInto(3).walkAround(1).color = YELLOW
-      pivotal.walkInto(3).walkAround(2).color = GREEN
-      return 10
+      setup = new Setup(4, 4, 10)
+      setup.addMarble(0, 2, WHITE)
+      setup.addMarble(0, 3, YELLOW)
+      setup.addMarble(1, 0, BLACK)
+      setup.addMarble(1, 2, YELLOW)
+      setup.addMarble(1, 3, GREEN)
+      setup.addMarble(2, 0, BLACK)
+      setup.addMarble(2, 1, BLACK)
+      setup.addMarble(2, 2, GREEN)
+      setup.addMarble(3, 0, WHITE)
+      setup.addMarble(3, 1, YELLOW)
+      setup.addMarble(3, 2, GREEN)
+      return setup
     case 23:
-      pivotal.color = GREEN
-      pivotal.walkAround(2).color = GREEN
-      pivotal.walkAround(3).color = BLACK
-      pivotal.walkInto(1).walkAround(1).color = GREEN
-      pivotal.walkInto(1).walkAround(2).color = YELLOW
-      pivotal.walkInto(1).walkAround(3).color = BLACK
-      pivotal.walkInto(2).color = YELLOW
-      pivotal.walkInto(2).walkAround(2).color = WHITE
-      pivotal.walkInto(2).walkAround(3).color = BLACK
-      pivotal.walkInto(3).color = YELLOW
-      pivotal.walkInto(3).walkAround(3).color = WHITE
-      return 11
+      setup = new Setup(4, 4, 11)
+      setup.addMarble(0, 0, GREEN)
+      setup.addMarble(0, 2, GREEN)
+      setup.addMarble(0, 3, BLACK)
+      setup.addMarble(1, 1, GREEN)
+      setup.addMarble(1, 2, YELLOW)
+      setup.addMarble(1, 3, BLACK)
+      setup.addMarble(2, 0, YELLOW)
+      setup.addMarble(2, 2, WHITE)
+      setup.addMarble(2, 3, BLACK)
+      setup.addMarble(3, 0, YELLOW)
+      setup.addMarble(3, 3, WHITE)
+      return setup
     case 24:
-      pivotal.walkAround(1).color = GREEN
-      pivotal.walkAround(3).color = WHITE
-      pivotal.walkInto(1).color = BLACK
-      pivotal.walkInto(1).walkAround(1).color = WHITE
-      pivotal.walkInto(1).walkAround(3).color = YELLOW
-      pivotal.walkInto(2).color = GREEN
-      pivotal.walkInto(2).walkAround(1).color = GREEN
-      pivotal.walkInto(2).walkAround(2).color = BLACK
-      pivotal.walkInto(3).color = YELLOW
-      pivotal.walkInto(3).walkAround(1).color = YELLOW
-      pivotal.walkInto(3).walkAround(2).color = BLACK
-      return 12
+      setup = new Setup(4, 4, 12)
+      setup.addMarble(0, 1, GREEN)
+      setup.addMarble(0, 3, WHITE)
+      setup.addMarble(1, 0, BLACK)
+      setup.addMarble(1, 1, WHITE)
+      setup.addMarble(1, 3, YELLOW)
+      setup.addMarble(2, 0, GREEN)
+      setup.addMarble(2, 1, GREEN)
+      setup.addMarble(2, 2, BLACK)
+      setup.addMarble(3, 0, YELLOW)
+      setup.addMarble(3, 1, YELLOW)
+      setup.addMarble(3, 2, BLACK)
+      return setup
       // End of original levels.
     case 25:
       // Depth of 5.
-      pivotal.walkAround(1).color = RED
-      pivotal.walkAround(2).color = YELLOW
-      pivotal.walkInto(1).color = GREEN
-      pivotal.walkInto(1).walkAround(2).color = BLACK
-      pivotal.walkInto(1).walkAround(3).color = GREEN
-      pivotal.walkInto(2).color = YELLOW
-      pivotal.walkInto(2).walkAround(2).color = GREEN
-      pivotal.walkInto(2).walkAround(3).color = YELLOW
-      pivotal.walkInto(3).color = BLACK
-      pivotal.walkInto(3).walkAround(1).color = BLACK
-      pivotal.walkInto(3).walkAround(2).color = WHITE
-      pivotal.walkInto(3).walkAround(3).color = RED
-      pivotal.walkInto(4).walkAround(3).color = RED
-      return 6
+      setup = new Setup(4, 5, 6)
+      setup.addMarble(0, 1, RED)
+      setup.addMarble(0, 2, YELLOW)
+      setup.addMarble(1, 0, GREEN)
+      setup.addMarble(1, 2, BLACK)
+      setup.addMarble(1, 3, GREEN)
+      setup.addMarble(2, 0, YELLOW)
+      setup.addMarble(2, 2, GREEN)
+      setup.addMarble(2, 3, YELLOW)
+      setup.addMarble(3, 0, BLACK)
+      setup.addMarble(3, 1, BLACK)
+      setup.addMarble(3, 2, WHITE)
+      setup.addMarble(3, 3, RED)
+      setup.addMarble(4, 3, RED)
+      return setup
     case 26:
       // Length of 5.
+      setup = new Setup(5, 4, 5)
       // Setup goal.
-      pivotal.setRowColor(GREEN)
-      pivotal.walkInto(1).walkAround(1).setRowColor(YELLOW)
-      pivotal.walkInto(2).walkAround(2).setRowColor(BLACK)
-      pivotal.walkInto(3).walkAround(3).color = WHITE
-      pivotal.walkInto(3).walkAround(4).color = WHITE
+      setup.addMarbleRow(0, 0, GREEN)
+      setup.addMarbleRow(1, 1, YELLOW)
+      setup.addMarbleRow(2, 2, BLACK)
+      setup.addMarble(3, 3, WHITE)
+      setup.addMarble(3, 4, WHITE)
       // Perform moves.
-      pivotal.walkAround(1).move()
-      pivotal.walkInto(1).walkAround(2).move()
-      pivotal.walkInto(1).walkAround(3).move()
-      pivotal.walkInto(2).walkAround(3).move()
-      pivotal.walkInto(2).walkAround(4).move()
-      return 5
+      setup.addMove(0, 1)
+      setup.addMove(1, 2)
+      setup.addMove(1, 3)
+      setup.addMove(2, 3)
+      setup.addMove(2, 4)
+      return setup
     default:
-      return setupRandomLevel(pivotal, level ** .75 )
+      setup = new Setup(4 + rndInt(2), 4 + rndInt(2), level ** .75)
+      setup.setRandomGoal()
+      setup.setRandomPlaceholders()
+      setup.doShuffle = true
+      return setup
   }
 }
 
-const rndInt = cap => Math.floor(Math.random() * cap)
-
-const setupRandomGoal = (pivotal) => {
-  const length = pivotal.getLength()
-  let edge = pivotal.walkAround(rndInt(length))
-  let colors = [...Array(pivotal.getDepth()).keys()].slice(1)
-  while (colors.length) {
-    edge = edge.walkAround(rndInt(length - 2))
-    let colorIndex = rndInt(colors.length)
-    edge.setRowColor(colors[colorIndex])
-    colors.splice(colorIndex, 1)
-    edge = edge.side.next
-  }
-}
-
-const placeRandomPlaceholders = (pivotal, min = 1, max = 2) => {
-  let tries = min + max
-  let placed = 0
-
-  while (placed < min || tries > 0 && placed < max) {
-    const edge = pivotal.goToRandom()
-
-    if (!edge.color) {
-      edge.color = WHITE
-      ++placed
-    }
-    --tries
-  }
-}
-
-const performRandomMoves = (pivotal, min = 3, max = 7) => {
-  let tries = (min + max) * pivotal.getLength()
-  let moves = 0
-  let lastMoved
-
-  while (moves < min || tries > 0 && moves < max) {
-    const edge = pivotal.goToRandom()
-
-    if (edge !== lastMoved && edge.move()) {
-      ++moves
-      lastMoved = edge
-    }
-    --tries
-  }
-
-  return moves
-}
-
-const setupRandomLevel = (pivotal, moves) => {
-  setupRandomGoal(pivotal)
-  placeRandomPlaceholders(pivotal)
-  return performRandomMoves(pivotal, moves, moves)
-}
-
-export default setupLevel
+export default makeSetup

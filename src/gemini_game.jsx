@@ -1,7 +1,7 @@
 import React from "react"
 import classNames from "classnames"
 import { GlobalHotKeys } from "react-hotkeys"
-import setupLevel from "./levels"
+import makeSetup from "./levels"
 
 class Edge {
   constructor({prev, next, side}) {
@@ -66,12 +66,21 @@ class Edge {
     return edge
   }
 
-  goToRandom() {
+  shuffle(moves) {
     const rndInt = cap => Math.floor(Math.random() * cap)
+    let moved = 0
+    let lastMoved
 
-    return this
-      .walkAround(rndInt(this.getLength()))
-      .walkInto(rndInt(this.getDepth()))
+    while (moved < moves) {
+      const edge = this
+        .walkAround(rndInt(this.getLength()))
+        .walkInto(rndInt(this.getDepth()))
+
+      if (edge !== lastMoved && edge.move()) {
+        ++moved
+        lastMoved = edge
+      }
+    }
   }
 
   isMovable() {
@@ -95,10 +104,6 @@ class Edge {
       }
     }
     return false
-  }
-
-  setRowColor(color) {
-    this.color = this.side.color = this.next.color = color
   }
 
   isRow() {
@@ -134,7 +139,7 @@ class Ring {
   }
 
   hasRow() {
-    return !!this.edges.filter((edge) => {return edge.isRow()}).length
+    return this.edges.some((edge) => {return edge.isRow()})
   }
 
   isSolved() {
@@ -150,21 +155,28 @@ class GeminiGame extends React.Component {
   }
 
   initGame(level) {
-    let length = level > 25 ? 5 : 4
-    let depth = level == 25 ? 5 : 4
-    let ring = new Ring({length: length})
+    const setup = makeSetup(level)
 
-    for (let i = 1; i < depth; ++i) {
+    let ring = new Ring({length: setup.length})
+    for (let i = 1; i < setup.depth; ++i) {
       ring = ring.makeCircumscribed()
     }
 
     const pivotal = ring.edges[0]
-    const moves = setupLevel(pivotal, level)
+    for (var marble of setup.marbles) {
+      pivotal.walkInto(marble.into).walkAround(marble.around).color = marble.color
+    }
+    for (var move of setup.moves) {
+      pivotal.walkInto(move.into).walkAround(move.around).move()
+    }
+    if (setup.doShuffle) {
+      pivotal.shuffle(setup.moveCount)
+    }
 
     return {
       ring: ring,
       level: level,
-      moves: moves,
+      moves: setup.moveCount,
       movedEdges: [],
       undoneEdges: [],
     }
