@@ -66,23 +66,6 @@ class Edge {
     return edge
   }
 
-  shuffle(moves) {
-    const rndInt = cap => Math.floor(Math.random() * cap)
-    let moved = 0
-    let lastMoved
-
-    while (moved < moves) {
-      const edge = this
-        .walkAround(rndInt(this.getLength()))
-        .walkInto(rndInt(this.getDepth()))
-
-      if (edge !== lastMoved && edge.move()) {
-        ++moved
-        lastMoved = edge
-      }
-    }
-  }
-
   isMovable() {
     return this.side && this.side.color
       && (this.color && !this.next.color || !this.color && this.next.color)
@@ -166,17 +149,17 @@ class GeminiGame extends React.Component {
     for (var marble of setup.marbles) {
       pivotal.walkInto(marble.into).walkAround(marble.around).color = marble.color
     }
+    let moves = setup.implicitMoves
     for (var move of setup.moves) {
+      if (setup.targetMoves && moves >= setup.targetMoves) break
       pivotal.walkInto(move.into).walkAround(move.around).move()
-    }
-    if (setup.doShuffle) {
-      pivotal.shuffle(setup.moveCount)
+        && ++moves
     }
 
     return {
       ring: ring,
       level: level,
-      moves: setup.moveCount,
+      moves: moves,
       movedEdges: [],
       undoneEdges: [],
     }

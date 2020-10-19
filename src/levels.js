@@ -7,13 +7,12 @@ const RED = 4
 const rndInt = cap => Math.floor(Math.random() * cap)
 
 class Setup {
-  constructor(length, depth, moveCount) {
+  constructor(length, depth, implicitMoves = 0) {
     this.length = length
     this.depth = depth
-    this.moveCount = Math.floor(moveCount)
+    this.implicitMoves = Math.floor(implicitMoves)
     this.marbles = []
     this.moves = []
-    this.doShuffle = false
   }
 
   addMarble(into, around, color) {
@@ -57,6 +56,21 @@ class Setup {
         ++placed
       }
       --tries
+    }
+  }
+
+  setRandomMoves(target) {
+    target = Math.floor(target)
+    // Since we cannot guarantee that moves are valid
+    // we fill a pool with a probably sufficient number of tries.
+    const poolSize = target * target
+
+    this.targetMoves = target
+
+    while (this.moves.length < poolSize) {
+      const into = rndInt(this.depth)
+      const around = rndInt(this.length)
+      this.addMove(into, around)
     }
   }
 }
@@ -411,7 +425,7 @@ const makeSetup = (level) => {
       return setup
     case 26:
       // Length of 5.
-      setup = new Setup(5, 4, 5)
+      setup = new Setup(5, 4)
       // Setup goal.
       setup.addMarbleRow(0, 0, GREEN)
       setup.addMarbleRow(1, 1, YELLOW)
@@ -426,10 +440,10 @@ const makeSetup = (level) => {
       setup.addMove(2, 4)
       return setup
     default:
-      setup = new Setup(4 + rndInt(2), 4 + rndInt(2), level ** .75)
+      setup = new Setup(4 + rndInt(2), 4 + rndInt(2))
       setup.setRandomGoal()
       setup.setRandomPlaceholders()
-      setup.doShuffle = true
+      setup.setRandomMoves(level ** .75)
       return setup
   }
 }
