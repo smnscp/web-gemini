@@ -16,13 +16,14 @@ class Setup {
   }
 
   addMarble(into, around, color) {
+    around = around % this.length
     this.marbles.push({into, around, color})
   }
 
   addMarbleRow(into, around, color) {
-    this.marbles.push({into, around, color})
-    this.marbles.push({into: into + 1, around, color})
-    this.marbles.push({into, around: around + 1, color})
+    this.addMarble(into, around, color)
+    this.addMarble(into + 1, around, color)
+    this.addMarble(into, around + 1, color)
   }
 
   addMove(into, around) {
