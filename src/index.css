@@ -141,6 +141,26 @@ body {
 }
 
 
+.gemini-game-3 .ring > .ring {
+  width: 50%;
+  height: 50%;
+  transform: rotate(60deg);
+  transform-origin: 62% 28%
+}
+.gemini-game-3 .ring > .edges {
+  height: 86.6%;
+}
+.gemini-game-3 .ring > .edges > .edge {
+  transform-origin: 50% calc(33.333% + 0.75vmin);
+}
+.gemini-game-3 .ring > .edges > .edge-2 {
+  transform: rotate(120deg);
+}
+.gemini-game-3 .ring > .edges > .edge-3 {
+  transform: rotate(240deg);
+}
+
+
 .gemini-game-5 .ring > .ring {
   width: 80.8%;
   height: 80.8%;
