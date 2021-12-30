@@ -121,6 +121,9 @@ body {
 .gemini-game .ring > .edges > .edge.color-4::before {
   background-color: firebrick;
 }
+.gemini-game .ring > .edges > .edge.color-5::before {
+  background-color: darkslateblue;
+}
 .gemini-game .ring > .edges > .edge button {
   position: absolute;
   top: -3.75vmin;
