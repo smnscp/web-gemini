@@ -8,10 +8,15 @@ const rndInt = cap => Math.floor(Math.random() * cap)
 
 class Setup {
   constructor(length, depth, implicitMoves = 0) {
+    // Length of rings, normally 4 for squares.
     this.length = length
+    // Number of rings, normally 4 (incl. the innermost ring w/o visible edges).
     this.depth = depth
+    // Moves implied by the initial setup (w/o calling `addMove`).
     this.implicitMoves = Math.floor(implicitMoves)
+    // List of placed marbles.
     this.marbles = []
+    // List of performed moves.
     this.moves = []
   }
 
