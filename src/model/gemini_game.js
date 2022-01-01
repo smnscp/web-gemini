@@ -33,27 +33,21 @@ export default class GeminiGame {
   }
 
   trackMove(edge) {
-    // TODO simplify
-    this.moves = this.moves - 1
-    this.movedEdges = this.movedEdges.concat(edge)
+    --this.moves
+    this.movedEdges.push(edge)
     this.undoneEdges = []
   }
 
   travelTime(steps) {
-      const source = (steps > 0) ? this.undoneEdges : this.movedEdges
-      const target = (steps < 0) ? this.undoneEdges : this.movedEdges
-      let count = Math.min(source.length, Math.round(Math.abs(steps)))
-      const moves = this.moves - Math.sign(steps) * count
-      while (count--) {
-        const edge = source.pop()
-        target.push(edge)
-        edge.move()
-      }
-
-      // TODO simplify
-      this.moves = moves
-      this.movedEdges = (steps > 0) ? target : source
-      this.undoneEdges = (steps < 0) ? target : source
+    const source = (steps > 0) ? this.undoneEdges : this.movedEdges
+    const target = (steps < 0) ? this.undoneEdges : this.movedEdges
+    let count = Math.min(source.length, Math.round(Math.abs(steps)))
+    this.moves -= Math.sign(steps) * count
+    while (count--) {
+      const edge = source.pop()
+      target.push(edge)
+      edge.move()
+    }
   }
 
   undo() {
