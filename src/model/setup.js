@@ -1,4 +1,4 @@
-import { WHITE } from '../colors'
+import { WHITE } from '../data/colors'
 import { rndInt } from '../tools'
 
 export default class Setup {

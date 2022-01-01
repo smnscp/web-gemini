@@ -1,5 +1,5 @@
 import { WHITE, GREEN, YELLOW, BLACK, RED } from './colors'
-import Setup from './model/setup'
+import Setup from '../model/setup'
 
 /**
  * Make a Setup for a given level.

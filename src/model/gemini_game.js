@@ -1,4 +1,4 @@
-import makeSetup from '../levels'
+import makeSetup from '../data/levels'
 import Ring from './ring'
 
 export default class GeminiGame {
