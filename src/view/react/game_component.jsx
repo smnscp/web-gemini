@@ -1,14 +1,14 @@
 import React from "react";
 import classNames from "classnames";
 import { GlobalHotKeys } from "react-hotkeys";
-import GeminiGame from "../../model/gemini_game";
+import Game from "../../model/game";
 import RingComponent from "./ring_component";
 
 export default class GameComponent extends React.Component {
   constructor(props) {
     super(props);
     const level = +props.level || 1;
-    this.game = new GeminiGame(level);
+    this.game = new Game(level);
   }
 
   trackMove(edge) {

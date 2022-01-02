@@ -1,7 +1,7 @@
 import makeSetup from "../data/levels";
 import Ring from "./ring";
 
-export default class GeminiGame {
+export default class Game {
   constructor(level) {
     this.initGame(level);
   }
