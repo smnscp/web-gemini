@@ -1,10 +1,10 @@
 import React from "react";
 import classNames from "classnames";
 import { GlobalHotKeys } from "react-hotkeys";
-import GeminiGame from "../model/gemini_game";
-import RingComponent from "./ring";
+import GeminiGame from "../../model/gemini_game";
+import RingComponent from "./ring_component";
 
-export default class GeminiGameComponent extends React.Component {
+export default class GameComponent extends React.Component {
   constructor(props) {
     super(props);
     const level = +props.level || 1;
@@ -43,7 +43,7 @@ export default class GeminiGameComponent extends React.Component {
   }
 
   render() {
-    console.debug("rendering GeminiGameComponent");
+    console.debug("rendering GameComponent");
     const classes = classNames(
       "gemini-game",
       `gemini-game-${this.game.ring.length}`
