@@ -2,8 +2,9 @@ import React from "react"
 import classNames from "classnames"
 import { GlobalHotKeys } from "react-hotkeys"
 import GeminiGame from "../model/gemini_game"
+import RingComponent from "./ring"
 
-class GeminiGameComponent extends React.Component {
+export default class GeminiGameComponent extends React.Component {
   constructor(props) {
     super(props)
     const level = +props.level || 1
@@ -72,48 +73,3 @@ class GeminiGameComponent extends React.Component {
     )
   }
 }
-
-class RingComponent extends React.Component {
-  render() {
-    console.debug('rendering RingComponent')
-    const inscribed = this.props.ring.inscribed
-    return (
-      <div className={classNames('ring', {innermost: !inscribed})}>
-        <ol className='edges'>
-          {this.props.ring.edges.map((edge, index) =>
-            <EdgeComponent edge={edge} key={index} index={index} onMove={this.props.onMove} />
-          )}
-        </ol>
-        {inscribed && <RingComponent ring={inscribed} onMove={this.props.onMove} />}
-      </div>
-    )
-  }
-}
-
-class EdgeComponent extends React.Component {
-  constructor(props) {
-    super(props)
-    console.debug('constructing EdgeComponent')
-  }
-
-  render() {
-    console.debug('rendering EdgeComponent')
-    const edge = this.props.edge
-    const classes = classNames(
-      'edge',
-      `edge-${this.props.index+1}`,
-      `color-${edge.color}`,
-      {movable: edge.isMovable()}
-    )
-    const onClick = edge.isMovable() ? (() => {
-      if (edge.move())
-        this.props.onMove(edge)
-    }) : undefined
-
-    return <li className={classes}>
-      {onClick && <button onClick={onClick} />}
-    </li>
-  }
-}
-
-export default GeminiGameComponent
