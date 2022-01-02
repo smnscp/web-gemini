@@ -1,7 +1,7 @@
 import React from "react"
 import classNames from "classnames"
 import { GlobalHotKeys } from "react-hotkeys"
-import GeminiGame from "./model/gemini_game"
+import GeminiGame from "../model/gemini_game"
 
 class GeminiGameComponent extends React.Component {
   constructor(props) {
