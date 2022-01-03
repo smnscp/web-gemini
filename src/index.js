@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import GameComponent from "./view/react/game_component.jsx";
 
 const level = window.location.hash.match(/[#&]level=(\d+)|/)[1];
