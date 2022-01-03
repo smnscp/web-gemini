@@ -15,11 +15,6 @@ export default class GameComponent extends React.Component {
     this.forceUpdate();
   }
 
-  travelTime(steps) {
-    this.game.travelTime(steps);
-    this.forceUpdate();
-  }
-
   undo() {
     this.game.undo();
     this.forceUpdate();
