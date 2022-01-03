@@ -2,6 +2,12 @@ export default class NavComponent extends HTMLElement {
   constructor() {
     super();
 
+    document.addEventListener("keydown", (event) => {
+      if (event.code == "KeyZ" && (event.ctrlKey || event.metaKey)) {
+        event.shiftKey ? this.redo() : this.undo();
+      }
+    });
+
     this.levelIndicator = document.createElement("p");
     this.movesIndicator = document.createElement("p");
     this.levelUpButton = document.createElement("button");
