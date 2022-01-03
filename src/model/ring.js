@@ -1,4 +1,4 @@
-import Edge from "./edge";
+import Edge from "./edge.js";
 
 export default class Ring {
   constructor({ inscribed, length = 4 } = {}) {

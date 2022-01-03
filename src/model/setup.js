@@ -1,5 +1,5 @@
-import { WHITE } from "../data/colors";
-import { rndInt } from "../tools";
+import { WHITE } from "../data/colors.js";
+import { rndInt } from "../tools.js";
 
 export default class Setup {
   constructor(length, depth, implicitMoves = 0) {

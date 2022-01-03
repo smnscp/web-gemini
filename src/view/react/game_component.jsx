@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { GlobalHotKeys } from "react-hotkeys";
 import Game from "../../model/game";
-import RingComponent from "./ring_component";
+import RingComponent from "./ring_component.jsx";
 
 export default class GameComponent extends React.Component {
   constructor(props) {

@@ -1,5 +1,5 @@
-import makeSetup from "../data/levels";
-import Ring from "./ring";
+import makeSetup from "../data/levels.js";
+import Ring from "./ring.js";
 
 export default class Game {
   constructor(level) {

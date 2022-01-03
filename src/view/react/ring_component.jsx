@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import EdgeComponent from "./edge_component";
+import EdgeComponent from "./edge_component.jsx";
 
 export default class RingComponent extends React.Component {
   render() {

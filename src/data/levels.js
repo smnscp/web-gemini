@@ -1,5 +1,5 @@
-import { WHITE, GREEN, YELLOW, BLACK, RED } from "./colors";
-import Setup from "../model/setup";
+import { WHITE, GREEN, YELLOW, BLACK, RED } from "./colors.js";
+import Setup from "../model/setup.js";
 
 /**
  * Make a Setup for a given level.
