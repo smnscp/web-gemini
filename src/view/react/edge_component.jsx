@@ -1,5 +1,4 @@
 import React from "react";
-import classNames from "classnames";
 
 export default class EdgeComponent extends React.Component {
   constructor(props) {
@@ -10,20 +9,15 @@ export default class EdgeComponent extends React.Component {
   render() {
     console.debug("rendering EdgeComponent");
     const edge = this.props.edge;
-    const classes = classNames(
-      "edge",
-      `edge-${this.props.index + 1}`,
-      `color-${edge.color}`,
-      { movable: edge.isMovable() }
-    );
-    const onClick = edge.isMovable()
-      ? () => {
-          if (edge.move()) this.props.onMove(edge);
-        }
-      : undefined;
+    let classes = `edge edge-${this.props.index + 1} color-${edge.color}`;
+    let button;
+    if (edge.isMovable()) {
+      classes += " movable";
+      button = (
+        <button onClick={() => edge.move() && this.props.onMove(edge)} />
+      );
+    }
 
-    return (
-      <li className={classes}>{onClick && <button onClick={onClick} />}</li>
-    );
+    return <li className={classes}>{button}</li>;
   }
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import classNames from "classnames";
 import { GlobalHotKeys } from "react-hotkeys";
 import Game from "../../model/game";
 import RingComponent from "./ring_component.jsx";
@@ -44,10 +43,6 @@ export default class GameComponent extends React.Component {
 
   render() {
     console.debug("rendering GameComponent");
-    const classes = classNames(
-      "gemini-game",
-      `gemini-game-${this.game.ring.length}`
-    );
     const keyMap = {
       UNDO: ["ctrl+z", "cmd+z"],
       REDO: ["shift+ctrl+z", "shift+cmd+z"],
@@ -57,7 +52,7 @@ export default class GameComponent extends React.Component {
       REDO: () => this.redo(),
     };
     return (
-      <div className={classes}>
+      <div className={`gemini-game gemini-game-${this.game.ring.length}`}>
         <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
         <RingComponent
           ring={this.game.ring}
