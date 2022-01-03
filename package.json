@@ -1,9 +1,13 @@
 {
-  "name": "gemini",
+  "name": "web-gemini",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
-  "author": "",
+  "description": "The board game Gemini by Dr. Oliver Schaudt implemented as a browser game.",
+  "keywords": [
+    "gemini",
+    "board game",
+    "browser game"
+  ],
+  "author": "Simon Schrape",
   "license": "ISC",
   "dependencies": {
     "react": "^17.0.2",
