@@ -3,6 +3,7 @@ import Ring from "./ring.js";
 
 export default class Game {
   constructor(level) {
+    if (!level) return;
     this.initGame(level);
   }
 
