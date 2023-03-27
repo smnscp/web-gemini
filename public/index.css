@@ -106,6 +106,45 @@ body {
   border-radius: 100%;
   z-index: 1000;
 }
+.gemini-game .ring > .edges > .edge.moved-from-side::before {
+  animation-duration: 0.5s;
+  animation-name: move-from-side;
+}
+@keyframes move-from-side {
+  from {
+    left: 50%;
+  }
+}
+.gemini-game .ring > .edges > .edge.moved-from-prev::before {
+  animation-duration: 0.5s;
+  animation-name: move-from-prev;
+}
+@keyframes move-from-prev {
+  from {
+    top: 50%;
+  }
+}
+.gemini-game .ring > .edges > .edge.moved-from-trunk::before {
+  animation-duration: 0.5s;
+  animation-name: move-from-trunk;
+}
+@keyframes move-from-trunk {
+  from {
+    top: 50%;
+    left: -50%;
+  }
+}
+.gemini-game .ring > .edges > .edge.moved-from-next-trunk::before {
+  animation-duration: 0.5s;
+  animation-name: move-from-next-trunk;
+}
+@keyframes move-from-next-trunk {
+  from {
+    top: -50%;
+    left: 50%;
+  }
+}
+
 .gemini-game .ring > .edges > .edge.color--1::before {
   background-color: white;
 }

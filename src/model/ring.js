@@ -1,7 +1,8 @@
 import Edge from "./edge.js";
 
 export default class Ring {
-  constructor({ inscribed, length = 4 } = {}) {
+  constructor({ game, inscribed, length = 4 } = {}) {
+    this.game = game || inscribed.game;
     this.inscribed = inscribed;
     this.edges = [];
     this.length = length;
@@ -9,6 +10,7 @@ export default class Ring {
     for (let i = 1, edge; i <= length; ++i) {
       if (!edge) {
         edge = new Edge({
+          ring: this,
           side: inscribed && inscribed.edges[0],
         });
       } else {

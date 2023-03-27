@@ -1,10 +1,13 @@
 export default class Edge {
-  constructor({ prev, next, side }) {
+  constructor({ ring, prev, next, side }) {
     this.prev = prev;
     this.next = next;
     this.side = side;
     this.color = 0;
+    this.ring = ring || prev.ring;
+    this.game = this.ring && this.ring.game;
     if (next) next.prev = this;
+    if (side) side.trunk = this;
   }
 
   makeNext(close = false) {
@@ -67,6 +70,10 @@ export default class Edge {
       this.side.color &&
       ((this.color && !this.next.color) || (!this.color && this.next.color))
     );
+  }
+
+  isMoved() {
+    return this === this.game.movedEdges.at(-1);
   }
 
   move() {

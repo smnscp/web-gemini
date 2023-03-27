@@ -10,7 +10,7 @@ export default class Game {
   initGame(level) {
     const setup = makeSetup(level);
 
-    let ring = new Ring({ length: setup.length });
+    let ring = new Ring({ game: this, length: setup.length });
     for (let i = 1; i < setup.depth; ++i) {
       ring = ring.makeCircumscribed();
     }
