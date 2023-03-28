@@ -5,7 +5,7 @@ import NavComponent from "./nav_component.js";
 customElements.define("gemini-ring", RingComponent, { extends: "div" });
 customElements.define("gemini-nav", NavComponent, { extends: "nav" });
 
-export default class GameComponent extends HTMLDivElement {
+export default class GameComponent extends HTMLElement {
   static get observedAttributes() {
     return ["level"];
   }
