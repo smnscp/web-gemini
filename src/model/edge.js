@@ -72,23 +72,17 @@ export default class Edge {
     );
   }
 
-  isMoved() {
-    return this === this.game.movedEdges.at(-1);
-  }
-
   getMoveDirection() {
-    if (this.color) {
-      if (this.isMoved()) {
+    switch (this.color && this.game.movedEdges.at(-1)) {
+      case undefined:
+      default:
+        return "";
+      case this:
         return "moved-from-side";
-      } else if (this.prev.isMoved()) {
+      case this.prev:
         return "moved-from-prev";
-      } else if (this.trunk && this.trunk.isMoved()) {
-        if (this.trunk.color) {
-          return "moved-from-next-trunk";
-        } else {
-          return "moved-from-trunk";
-        }
-      }
+      case this.trunk:
+        return this.trunk.color ? "moved-from-next-trunk" : "moved-from-trunk";
     }
   }
 
