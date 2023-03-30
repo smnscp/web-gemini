@@ -18,10 +18,10 @@ gemini-game {
   align-items: center;
   justify-content: center;
 }
-gemini-game gemini-nav {
+gemini-nav {
   position: absolute;
 }
-gemini-game gemini-nav button {
+gemini-nav button {
   font-family: inherit;
   font-weight: bold;
   text-shadow: none;
@@ -32,24 +32,24 @@ gemini-game gemini-nav button {
   padding: 2vmin;
   margin: 0.5vmin;
 }
-gemini-game gemini-nav button[disabled] {
+gemini-nav button[disabled] {
   color: #666;
   background: #999;
 }
-gemini-game gemini-nav button.primary {
+gemini-nav button.primary {
   color: #ccc;
   background: green;
 }
-gemini-game gemini-nav button.text {
+gemini-nav button.text {
   font-style: italic;
   font-size: 3vmin;
 }
-gemini-game gemini-nav button.pict {
+gemini-nav button.pict {
   font-size: 6vmin;
   line-height: 0.6;
   padding: 0.5vmin 1vmin 1.5vmin;
 }
-gemini-game gemini-ring {
+gemini-ring {
   position: absolute;
   width: 80vmin;
   height: 80vmin;
@@ -57,12 +57,12 @@ gemini-game gemini-ring {
   align-items: center;
   justify-content: center;
 }
-gemini-game gemini-ring > gemini-ring {
+gemini-ring > gemini-ring {
   width: 70.71%;
   height: 70.71%;
   transform: rotate(45deg);
 }
-gemini-game gemini-ring > .edges {
+gemini-ring > .edges {
   position: absolute;
   margin: 0;
   padding: 0;
@@ -70,7 +70,7 @@ gemini-game gemini-ring > .edges {
   height: 100%;
   pointer-events: none;
 }
-gemini-game gemini-ring > .edges > gemini-edge {
+gemini-edge {
   position: absolute;
   top: -1.5vmin;
   right: 0;
@@ -81,19 +81,19 @@ gemini-game gemini-ring > .edges > gemini-edge {
   border-top: 1.5vmin solid #a84;
   transform-origin: 50% calc(50% + 0.75vmin);
 }
-gemini-game gemini-ring.innermost > .edges > gemini-edge {
+gemini-ring.innermost gemini-edge {
   border-color: transparent;
 }
-gemini-game gemini-ring > .edges > .seq-2 {
+gemini-edge.seq-2 {
   transform: rotate(90deg);
 }
-gemini-game gemini-ring > .edges > .seq-3 {
+gemini-edge.seq-3 {
   transform: rotate(180deg);
 }
-gemini-game gemini-ring > .edges > .seq-4 {
+gemini-edge.seq-4 {
   transform: rotate(270deg);
 }
-gemini-game gemini-ring > .edges > gemini-edge::before {
+gemini-edge::before {
   content: "";
   position: absolute;
   top: -0.75vmin;
@@ -105,7 +105,7 @@ gemini-game gemini-ring > .edges > gemini-edge::before {
   border-radius: 100%;
   z-index: 1000;
 }
-gemini-game gemini-ring > .edges > gemini-edge.moved-from-side::before {
+gemini-edge.moved-from-side::before {
   animation-duration: 0.5s;
   animation-name: move-from-side;
 }
@@ -114,7 +114,7 @@ gemini-game gemini-ring > .edges > gemini-edge.moved-from-side::before {
     left: 50%;
   }
 }
-gemini-game gemini-ring > .edges > gemini-edge.moved-from-prev::before {
+gemini-edge.moved-from-prev::before {
   animation-duration: 0.5s;
   animation-name: move-from-prev;
 }
@@ -123,7 +123,7 @@ gemini-game gemini-ring > .edges > gemini-edge.moved-from-prev::before {
     top: 50%;
   }
 }
-gemini-game gemini-ring > .edges > gemini-edge.moved-from-trunk::before {
+gemini-edge.moved-from-trunk::before {
   animation-duration: 0.5s;
   animation-name: move-from-trunk;
 }
@@ -133,7 +133,7 @@ gemini-game gemini-ring > .edges > gemini-edge.moved-from-trunk::before {
     left: -50%;
   }
 }
-gemini-game gemini-ring > .edges > gemini-edge.moved-from-next-trunk::before {
+gemini-edge.moved-from-next-trunk::before {
   animation-duration: 0.5s;
   animation-name: move-from-next-trunk;
 }
@@ -144,25 +144,25 @@ gemini-game gemini-ring > .edges > gemini-edge.moved-from-next-trunk::before {
   }
 }
 
-gemini-game gemini-ring > .edges > gemini-edge.color--1::before {
+gemini-edge.color--1::before {
   background-color: white;
 }
-gemini-game gemini-ring > .edges > gemini-edge.color-1::before {
+gemini-edge.color-1::before {
   background-color: green;
 }
-gemini-game gemini-ring > .edges > gemini-edge.color-2::before {
+gemini-edge.color-2::before {
   background-color: yellow;
 }
-gemini-game gemini-ring > .edges > gemini-edge.color-3::before {
+gemini-edge.color-3::before {
   background-color: black;
 }
-gemini-game gemini-ring > .edges > gemini-edge.color-4::before {
+gemini-edge.color-4::before {
   background-color: firebrick;
 }
-gemini-game gemini-ring > .edges > gemini-edge.color-5::before {
+gemini-edge.color-5::before {
   background-color: darkslateblue;
 }
-gemini-game gemini-ring > .edges > gemini-edge button {
+gemini-edge button {
   position: absolute;
   top: -3.75vmin;
   width: 100%;
@@ -174,46 +174,46 @@ gemini-game gemini-ring > .edges > gemini-edge button {
   z-index: 1000;
   pointer-events: auto;
 }
-gemini-game gemini-ring > .edges > gemini-edge button:hover {
+gemini-edge button:hover {
   background: rgba(255, 255, 255, 0.25);
 }
 
-.length-3 gemini-ring > gemini-ring {
+gemini-game.length-3 gemini-ring > gemini-ring {
   width: 50%;
   height: 50%;
   transform: rotate(60deg);
   transform-origin: 62% 28%;
 }
-.length-3 gemini-ring > .edges {
+gemini-game.length-3 gemini-ring > .edges {
   height: 86.6%;
 }
-.length-3 gemini-ring > .edges > gemini-edge {
+gemini-game.length-3 gemini-edge {
   transform-origin: 50% calc(33.333% + 0.75vmin);
 }
-.length-3 gemini-ring > .edges > .seq-2 {
+gemini-game.length-3 gemini-edge.seq-2 {
   transform: rotate(120deg);
 }
-.length-3 gemini-ring > .edges > .seq-3 {
+gemini-game.length-3 gemini-edge.seq-3 {
   transform: rotate(240deg);
 }
 
-.length-5 gemini-ring > gemini-ring {
+gemini-game.length-5 gemini-ring > gemini-ring {
   width: 80.8%;
   height: 80.8%;
   transform: rotate(36deg);
 }
-.length-5 gemini-ring > .edges {
+gemini-game.length-5 gemini-ring > .edges {
   width: 72.5%;
 }
-.length-5 gemini-ring > .edges > .seq-2 {
+gemini-game.length-5 gemini-edge.seq-2 {
   transform: rotate(72deg);
 }
-.length-5 gemini-ring > .edges > .seq-3 {
+gemini-game.length-5 gemini-edge.seq-3 {
   transform: rotate(144deg);
 }
-.length-5 gemini-ring > .edges > .seq-4 {
+gemini-game.length-5 gemini-edge.seq-4 {
   transform: rotate(216deg);
 }
-.length-5 gemini-ring > .edges > .seq-5 {
+gemini-game.length-5 gemini-edge.seq-5 {
   transform: rotate(288deg);
 }
