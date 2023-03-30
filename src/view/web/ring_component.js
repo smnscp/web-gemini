@@ -25,8 +25,6 @@ export default class RingComponent extends HTMLElement {
       this.inscribedComp.ring = inscribed;
       this.inscribedComp.onMove = this.onMove;
       this.appendChild(this.inscribedComp);
-    } else {
-      this.className += " innermost";
     }
   }
 

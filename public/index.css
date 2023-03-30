@@ -81,7 +81,8 @@ gemini-edge {
   border-top: 1.5vmin solid #a84;
   transform-origin: 50% calc(50% + 0.75vmin);
 }
-gemini-ring.innermost gemini-edge {
+/* the innermost ring w/o visible edges */
+gemini-ring > .edges:only-child gemini-edge {
   border-color: transparent;
 }
 gemini-edge.seq-2 {

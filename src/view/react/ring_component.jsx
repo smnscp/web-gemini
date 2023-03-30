@@ -7,7 +7,7 @@ export default class RingComponent extends React.Component {
     const inscribed = this.props.ring.inscribed;
 
     return (
-      <gemini-ring class={inscribed ? undefined : "innermost"}>
+      <gemini-ring>
         <div className="edges">
           {this.props.ring.edges.map((edge, index) => (
             <EdgeComponent
