@@ -3,11 +3,9 @@ import React from "react";
 export default class EdgeComponent extends React.Component {
   constructor(props) {
     super(props);
-    console.debug("constructing EdgeComponent");
   }
 
   render() {
-    console.debug("rendering EdgeComponent");
     const edge = this.props.edge;
     let classes = `seq-${this.props.index + 1} color-${edge.color}`;
     let button;

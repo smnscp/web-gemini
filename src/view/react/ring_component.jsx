@@ -3,7 +3,6 @@ import EdgeComponent from "./edge_component.jsx";
 
 export default class RingComponent extends React.Component {
   render() {
-    console.debug("rendering RingComponent");
     const inscribed = this.props.ring.inscribed;
 
     return (

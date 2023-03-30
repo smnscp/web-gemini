@@ -37,7 +37,6 @@ export default class GameComponent extends React.Component {
   }
 
   render() {
-    console.debug("rendering GameComponent");
     const keyMap = {
       UNDO: ["ctrl+z", "cmd+z"],
       REDO: ["shift+ctrl+z", "shift+cmd+z"],
