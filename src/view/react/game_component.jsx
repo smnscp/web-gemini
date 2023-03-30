@@ -53,7 +53,7 @@ export default class GameComponent extends React.Component {
           ring={this.game.ring}
           onMove={(edge) => this.trackMove(edge)}
         />
-        <nav>
+        <gemini-nav>
           <p>Level: {this.game.level}</p>
           <p>Moves: {this.game.moves}</p>
           {this.game.ring.isSolved() ? (
@@ -88,7 +88,7 @@ export default class GameComponent extends React.Component {
               </button>
             </>
           )}
-        </nav>
+        </gemini-nav>
       </div>
     );
   }

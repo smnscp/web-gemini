@@ -1,11 +1,11 @@
 import EdgeComponent from "./edge_component.js";
 
-customElements.define("gemini-edge", EdgeComponent, { extends: "li" });
+customElements.define("gemini-edge", EdgeComponent);
 
-export default class RingComponent extends HTMLDivElement {
+export default class RingComponent extends HTMLElement {
   constructor() {
     super();
-    this.edgeList = document.createElement("ol");
+    this.edgeList = document.createElement("div");
     this.edgeList.className = "edges";
   }
 
@@ -13,7 +13,7 @@ export default class RingComponent extends HTMLDivElement {
     this.className = "ring";
 
     for (let index = 0; index < this.ring.edges.length; ++index) {
-      const edgeComp = document.createElement("li", { is: "gemini-edge" });
+      const edgeComp = document.createElement("gemini-edge");
       edgeComp.edge = this.ring.edges[index];
       edgeComp.index = index;
       edgeComp.onMove = this.onMove;
@@ -23,7 +23,7 @@ export default class RingComponent extends HTMLDivElement {
 
     const inscribed = this.ring.inscribed;
     if (inscribed) {
-      this.inscribedComp = document.createElement("div", { is: "gemini-ring" });
+      this.inscribedComp = document.createElement("gemini-ring");
       this.inscribedComp.ring = inscribed;
       this.inscribedComp.onMove = this.onMove;
       this.appendChild(this.inscribedComp);

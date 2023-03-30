@@ -8,7 +8,7 @@ export default class RingComponent extends React.Component {
 
     return (
       <div className={"ring" + (inscribed ? "" : " innermost")}>
-        <ol className="edges">
+        <div className="edges">
           {this.props.ring.edges.map((edge, index) => (
             <EdgeComponent
               edge={edge}
@@ -17,7 +17,7 @@ export default class RingComponent extends React.Component {
               onMove={this.props.onMove}
             />
           ))}
-        </ol>
+        </div>
         {inscribed && (
           <RingComponent ring={inscribed} onMove={this.props.onMove} />
         )}

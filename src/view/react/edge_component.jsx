@@ -18,6 +18,6 @@ export default class EdgeComponent extends React.Component {
       );
     }
 
-    return <li className={classes}>{button}</li>;
+    return <div className={classes}>{button}</div>;
   }
 }

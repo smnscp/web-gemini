@@ -1,4 +1,4 @@
-export default class EdgeComponent extends HTMLLIElement {
+export default class EdgeComponent extends HTMLElement {
   constructor() {
     super();
     this.button = document.createElement("button");
