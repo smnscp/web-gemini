@@ -17,18 +17,6 @@ export default class EdgeComponent extends HTMLElement {
     } else {
       this.button.isConnected && this.removeChild(this.button);
     }
-    if (this.edge.color) {
-      if (this.edge.isMoved()) {
-        this.className += " moved-from-side";
-      } else if (this.edge.prev.isMoved()) {
-        this.className += " moved-from-prev";
-      } else if (this.edge.trunk && this.edge.trunk.isMoved()) {
-        if (this.edge.trunk.color) {
-          this.className += " moved-from-next-trunk";
-        } else {
-          this.className += " moved-from-trunk";
-        }
-      }
-    }
+    this.className += " " + this.edge.getMoveDirection();
   }
 }

@@ -76,6 +76,22 @@ export default class Edge {
     return this === this.game.movedEdges.at(-1);
   }
 
+  getMoveDirection() {
+    if (this.color) {
+      if (this.isMoved()) {
+        return "moved-from-side";
+      } else if (this.prev.isMoved()) {
+        return "moved-from-prev";
+      } else if (this.trunk && this.trunk.isMoved()) {
+        if (this.trunk.color) {
+          return "moved-from-next-trunk";
+        } else {
+          return "moved-from-trunk";
+        }
+      }
+    }
+  }
+
   move() {
     if (this.side && this.side.color) {
       if (this.color && !this.next.color) {

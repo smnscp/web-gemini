@@ -15,6 +15,7 @@ export default class EdgeComponent extends React.Component {
         <button onClick={() => edge.move() && this.props.onMove(edge)} />
       );
     }
+    classes += " " + edge.getMoveDirection();
 
     return <gemini-edge class={classes}>{button}</gemini-edge>;
   }
