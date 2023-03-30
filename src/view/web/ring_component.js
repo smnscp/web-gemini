@@ -10,8 +10,6 @@ export default class RingComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    this.className = "ring";
-
     for (let index = 0; index < this.ring.edges.length; ++index) {
       const edgeComp = document.createElement("gemini-edge");
       edgeComp.edge = this.ring.edges[index];

@@ -9,7 +9,7 @@ export default class EdgeComponent extends React.Component {
   render() {
     console.debug("rendering EdgeComponent");
     const edge = this.props.edge;
-    let classes = `edge edge-${this.props.index + 1} color-${edge.color}`;
+    let classes = `seq-${this.props.index + 1} color-${edge.color}`;
     let button;
     if (edge.isMovable()) {
       classes += " movable";
@@ -18,6 +18,6 @@ export default class EdgeComponent extends React.Component {
       );
     }
 
-    return <div className={classes}>{button}</div>;
+    return <gemini-edge class={classes}>{button}</gemini-edge>;
   }
 }

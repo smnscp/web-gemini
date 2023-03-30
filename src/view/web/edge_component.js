@@ -10,7 +10,7 @@ export default class EdgeComponent extends HTMLElement {
   }
 
   updateState() {
-    this.className = `edge edge-${this.index + 1} color-${this.edge.color}`;
+    this.className = `seq-${this.index + 1} color-${this.edge.color}`;
     if (this.edge.isMovable()) {
       this.className += " movable";
       this.button.isConnected || this.appendChild(this.button);

@@ -47,7 +47,7 @@ export default class GameComponent extends React.Component {
       REDO: () => this.redo(),
     };
     return (
-      <div className={`gemini-game gemini-game-${this.game.ring.length}`}>
+      <gemini-game class={`length-${this.game.ring.length}`}>
         <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
         <RingComponent
           ring={this.game.ring}
@@ -89,7 +89,7 @@ export default class GameComponent extends React.Component {
             </>
           )}
         </gemini-nav>
-      </div>
+      </gemini-game>
     );
   }
 }

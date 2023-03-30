@@ -7,7 +7,7 @@ export default class RingComponent extends React.Component {
     const inscribed = this.props.ring.inscribed;
 
     return (
-      <div className={"ring" + (inscribed ? "" : " innermost")}>
+      <gemini-ring class={inscribed ? undefined : "innermost"}>
         <div className="edges">
           {this.props.ring.edges.map((edge, index) => (
             <EdgeComponent
@@ -21,7 +21,7 @@ export default class RingComponent extends React.Component {
         {inscribed && (
           <RingComponent ring={inscribed} onMove={this.props.onMove} />
         )}
-      </div>
+      </gemini-ring>
     );
   }
 }

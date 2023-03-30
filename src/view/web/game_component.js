@@ -33,7 +33,7 @@ export default class GameComponent extends HTMLElement {
   }
 
   reload() {
-    this.className = `gemini-game gemini-game-${this.game.ring.length}`;
+    this.className = `length-${this.game.ring.length}`;
 
     if (this.ringComp.isConnected) this.removeChild(this.ringComp);
     this.ringComp.ring = this.game.ring;
