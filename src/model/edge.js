@@ -73,7 +73,7 @@ export default class Edge {
   }
 
   getMoveDirection() {
-    switch (this.color && this.game.movedEdges.at(-1)) {
+    switch (this.color && this.game.getLastEdge()) {
       case undefined:
       default:
         return "";

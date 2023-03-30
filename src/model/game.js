@@ -31,17 +31,20 @@ export default class Game {
     this.moves = moves;
     this.movedEdges = [];
     this.undoneEdges = [];
+    this.isReverse = false;
   }
 
   trackMove(edge) {
+    this.isReverse = false;
     --this.moves;
     this.movedEdges.push(edge);
     this.undoneEdges = [];
   }
 
   travelTime(steps) {
-    const source = steps > 0 ? this.undoneEdges : this.movedEdges;
-    const target = steps < 0 ? this.undoneEdges : this.movedEdges;
+    this.isReverse = steps < 0;
+    const source = this.isReverse ? this.movedEdges : this.undoneEdges;
+    const target = this.isReverse ? this.undoneEdges : this.movedEdges;
     let count = Math.min(source.length, Math.round(Math.abs(steps)));
     this.moves -= Math.sign(steps) * count;
     while (count--) {
@@ -66,5 +69,9 @@ export default class Game {
   levelUp() {
     const nextLevel = this.level + 1;
     this.initGame(nextLevel);
+  }
+
+  getLastEdge() {
+    return (this.isReverse ? this.undoneEdges : this.movedEdges).at(-1);
   }
 }
